@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (e.g. 0.1.1 or 0.1.2-SNAPSHOT)'
+        description: 'Version to publish (e.g. 0.1.2 or 0.1.3-SNAPSHOT)'
         required: true
         type: string
 
@@ -50,15 +50,19 @@ jobs:
       - name: Verify tests, Detekt, Spotless, and Binary Compatibility
         run: ./gradlew test detekt spotlessCheck apiCheck -Pversion="${{ steps.version.outputs.value }}" --console=plain
 
+      # Maven Central may temporarily block com.awakekt under monthly namespace file-count quotas.
+      # Do not block the signed GitHub Pages Maven mirror (https://awakekt.github.io/release-guard/).
       - name: Publish to Maven Central
+        id: central
+        continue-on-error: true
         shell: bash
         env:
           DOPPLER_TOKEN: ${{ secrets.MAVEN_CENTRAL_DOPPLER_TOKEN }}
           RELEASE_VERSION: ${{ steps.version.outputs.value }}
         run: |
           [[ -n "$DOPPLER_TOKEN" ]] || {
-            echo "::error::Set the MAVEN_CENTRAL_DOPPLER_TOKEN repository secret."
-            exit 1
+            echo "::warning::MAVEN_CENTRAL_DOPPLER_TOKEN not set; skipping Maven Central upload."
+            exit 0
           }
           doppler run --no-fallback --project maven-central --config prd -- \
             env -u DOPPLER_TOKEN bash -e -o pipefail <<'PUBLISH_CENTRAL'
@@ -81,6 +85,54 @@ jobs:
 
             ./gradlew publishAndReleaseToMavenCentral -Pversion="$RELEASE_VERSION" --no-configuration-cache --console=plain
           PUBLISH_CENTRAL
+
+      # Zero-token public Maven repository served at https://awakekt.github.io/release-guard/
+      - name: Publish signed Maven repository to GitHub Pages (gh-pages)
+        shell: bash
+        env:
+          DOPPLER_TOKEN: ${{ secrets.MAVEN_CENTRAL_DOPPLER_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          export PAGES_DIR="$RUNNER_TEMP/gh-pages"
+          rm -rf "$PAGES_DIR"
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git clone --depth 1 --branch gh-pages "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$PAGES_DIR"
+          else
+            mkdir -p "$PAGES_DIR"
+            git -C "$PAGES_DIR" init -b gh-pages
+            git -C "$PAGES_DIR" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          fi
+          touch "$PAGES_DIR/.nojekyll"
+
+          if [[ -n "$DOPPLER_TOKEN" ]]; then
+            doppler run --no-fallback --project maven-central --config prd -- \
+              env -u DOPPLER_TOKEN bash -e -o pipefail <<'PUBLISH_PAGES'
+              printf '::add-mask::%s\n' "$GPG_SIGNING_PASSWORD"
+              while IFS= read -r line; do
+                [[ -n "$line" ]] && printf '::add-mask::%s\n' "$line"
+              done <<< "$GPG_SIGNING_KEY"
+              export ORG_GRADLE_PROJECT_signingInMemoryKey="$GPG_SIGNING_KEY"
+              export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_PASSWORD"
+              ./gradlew publishAllPublicationsToPagesStagingRepository \
+                -Pversion="$RELEASE_VERSION" \
+                -PreleaseGuard.stagingDir="$PAGES_DIR" \
+                --no-configuration-cache --console=plain
+          PUBLISH_PAGES
+          else
+            ./gradlew publishAllPublicationsToPagesStagingRepository \
+              -Pversion="$RELEASE_VERSION" \
+              -PreleaseGuard.stagingDir="$PAGES_DIR" \
+              --no-configuration-cache --console=plain
+          fi
+
+          git -C "$PAGES_DIR" config user.name "github-actions[bot]"
+          git -C "$PAGES_DIR" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$PAGES_DIR" add -A
+          if ! git -C "$PAGES_DIR" diff --cached --quiet; then
+            git -C "$PAGES_DIR" commit -m "chore(pages): publish Release Guard ${RELEASE_VERSION}"
+            git -C "$PAGES_DIR" push -u origin gh-pages
+          fi
 
       - name: Publish mirror to GitHub Packages and build CLI distribution
         env:

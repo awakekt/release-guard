@@ -35,13 +35,19 @@ shipping, but **never replaces server-authoritative logic, entitlement validatio
 | **Transport TLS** | SPKI SHA-256 pin syntax, wildcard matching (`*.`, `**.`), rotation backup pin count, optional live TLS handshake verification, and live pin printing. |
 | **Supply Chain & Baselines** | Gradle `-SNAPSHOT` dependency gating, baseline regression diffing (`--baseline` / `--fail-on-regression`), and SARIF 2.1.0 output for GitHub Code Scanning. |
 
-## Installation (Maven Central)
+## Installation (Zero-Token Public Maven)
 
-Release Guard is published to **Maven Central** (no tokens required). Ensure `mavenCentral()` is present in `pluginManagement` and `dependencyResolutionManagement` in `settings.gradle.kts`:
+Release Guard is published to **Maven Central** and mirrored (GPG-signed, zero-token) at **`https://awakekt.github.io/release-guard/`**. Add both in `settings.gradle.kts`:
 
 ```kotlin
 pluginManagement {
     repositories {
+        maven("https://awakekt.github.io/release-guard/") {
+            content {
+                includeGroup("com.awakekt.releaseguard")
+                includeGroup("com.awakekt.release-guard")
+            }
+        }
         gradlePluginPortal()
         mavenCentral()
     }

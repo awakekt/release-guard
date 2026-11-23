@@ -132,6 +132,12 @@ subprojects {
     plugins.withId("maven-publish") {
         extensions.configure<PublishingExtension> {
             repositories {
+                providers.gradleProperty("releaseGuard.stagingDir").orNull?.takeIf { it.isNotBlank() }?.let { dir ->
+                    maven {
+                        name = "PagesStaging"
+                        url = uri(file(dir))
+                    }
+                }
                 maven {
                     name = "GitHubPackages"
                     url = uri("https://maven.pkg.github.com/awakekt/release-guard")
