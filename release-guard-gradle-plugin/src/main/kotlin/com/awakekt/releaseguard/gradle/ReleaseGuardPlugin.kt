@@ -288,22 +288,23 @@ public class ReleaseGuardPlugin : Plugin<Project> {
         // Capture resolved external coordinates lazily for supply-chain -SNAPSHOT gating without breaking configuration cache.
         project.configurations.matching { it.name == "runtimeClasspath" || it.name == "releaseRuntimeClasspath" }.configureEach { cfg ->
             val coordsProvider = cfg.incoming.resolutionResult.rootComponent.map { root ->
-                val seen = LinkedHashSet<String>()
+                val visited = HashSet<String>()
+                val coords = LinkedHashSet<String>()
                 fun walk(comp: org.gradle.api.artifacts.result.ResolvedComponentResult) {
                     val id = comp.id
                     if (id is ModuleComponentIdentifier) {
-                        seen += "${id.group}:${id.module}:${id.version}"
+                        coords += "${id.group}:${id.module}:${id.version}"
                     }
                     comp.dependencies
                         .filterIsInstance<org.gradle.api.artifacts.result.ResolvedDependencyResult>()
                         .forEach { dep ->
-                            if (seen.add(dep.selected.id.displayName)) {
+                            if (visited.add(dep.selected.id.displayName)) {
                                 walk(dep.selected)
                             }
                         }
                 }
                 walk(root)
-                seen.filter { ':' in it }.sorted()
+                coords.sorted()
             }
             verifyTask.configure { it.resolvedDependencies.addAll(coordsProvider) }
         }
@@ -465,6 +466,8 @@ private object AndroidReleaseHardeningHook {
                     releaseType.vcsInfo.include = false
                     releaseType.proguardFile(generateRules.flatMap { it.androidRulesFile })
                 }
+                project.tasks.matching { it.name.contains("Release") && (it.name.startsWith("minify") || it.name.startsWith("merge")) }
+                    .configureEach { it.dependsOn(generateRules) }
             }
             components.onVariants { variant ->
                 if (variant.buildType == "release" && ext.android.autoConfigureReleaseHardening.get()) {
@@ -472,7 +475,5 @@ private object AndroidReleaseHardeningHook {
                 }
             }
         }
-        project.tasks.matching { it.name.contains("Release") && (it.name.startsWith("minify") || it.name.startsWith("merge")) }
-            .configureEach { it.dependsOn(generateRules) }
     }
 }

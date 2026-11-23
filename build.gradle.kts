@@ -6,6 +6,8 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
@@ -84,6 +86,54 @@ subprojects {
         extensions.configure<KotlinJvmProjectExtension> {
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_17)
+            }
+        }
+    }
+
+    plugins.withId("maven-publish") {
+        extensions.configure<PublishingExtension> {
+            repositories {
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/awakekt/release-guard")
+                    credentials {
+                        username =
+                            providers.environmentVariable("GITHUB_ACTOR")
+                                .orElse(providers.gradleProperty("gpr.user"))
+                                .orElse(providers.gradleProperty("githubPackagesUser"))
+                                .orElse("token")
+                                .get()
+                        password =
+                            providers.environmentVariable("GITHUB_TOKEN")
+                                .orElse(providers.gradleProperty("gpr.key"))
+                                .orElse(providers.gradleProperty("githubPackagesToken"))
+                                .orElse("")
+                                .get()
+                    }
+                }
+            }
+            publications.withType<MavenPublication>().configureEach {
+                pom {
+                    url.set("https://github.com/awakekt/release-guard")
+                    licenses {
+                        license {
+                            name.set("Apache-2.0")
+                            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("ronjunevaldoz")
+                            name.set("Ron June Valdoz")
+                            url.set("https://github.com/awakekt")
+                        }
+                    }
+                    scm {
+                        url.set("https://github.com/awakekt/release-guard")
+                        connection.set("scm:git:git://github.com/awakekt/release-guard.git")
+                        developerConnection.set("scm:git:ssh://git@github.com/awakekt/release-guard.git")
+                    }
+                }
             }
         }
     }

@@ -35,6 +35,30 @@ shipping, but **never replaces server-authoritative logic, entitlement validatio
 | **Transport TLS** | SPKI SHA-256 pin syntax, wildcard matching (`*.`, `**.`), rotation backup pin count, optional live TLS handshake verification, and live pin printing. |
 | **Supply Chain & Baselines** | Gradle `-SNAPSHOT` dependency gating, baseline regression diffing (`--baseline` / `--fail-on-regression`), and SARIF 2.1.0 output for GitHub Code Scanning. |
 
+## Installation (GitHub Packages)
+
+Add the `awakekt/release-guard` GitHub Packages Maven repository to both `pluginManagement` and `dependencyResolutionManagement` in `settings.gradle.kts` (GitHub Packages requires a token with `read:packages` even for public packages):
+
+```kotlin
+pluginManagement {
+    repositories {
+        maven("https://maven.pkg.github.com/awakekt/release-guard") {
+            credentials {
+                username = "token"
+                password = providers.gradleProperty("githubPackagesToken").orNull
+                    ?: System.getenv("GITHUB_TOKEN") ?: ""
+            }
+            content {
+                includeGroup("com.awakekt.releaseguard")
+                includeGroup("com.awakekt.release-guard")
+            }
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+```
+
 ## Gradle plugin quick start
 
 ```kotlin

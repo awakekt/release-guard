@@ -34,15 +34,8 @@ publishing {
                 name.set("Release Guard CLI")
                 description.set(
                     "Standalone CLI for auditing KMP release binaries, stripping web bundles, " +
-                        "verifying TLS SPKI pins, and exporting JSON/Markdown/SARIF scorecards.",
+                        "verifying TLS SPKI pins, and exporting HTML/JSON/Markdown/SARIF scorecards.",
                 )
-                url.set("https://github.com/awakekt/release-guard")
-                licenses {
-                    license {
-                        name.set("Apache-2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
             }
         }
     }

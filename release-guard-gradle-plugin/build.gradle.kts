@@ -16,7 +16,6 @@ kotlin {
 
 dependencies {
     implementation(project(":release-guard-core"))
-    implementation(project(":release-guard-cli"))
     implementation(libs.kotlinx.serialization.json)
 
     compileOnly(libs.kotlin.gradle.plugin)

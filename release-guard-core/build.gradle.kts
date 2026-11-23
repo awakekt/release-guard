@@ -31,13 +31,6 @@ publishing {
                     "Pure-Kotlin release-hardening auditor, binary inspector, web bundle stripper, " +
                         "and weighted scorecard engine for KMP apps and games.",
                 )
-                url.set("https://github.com/awakekt/release-guard")
-                licenses {
-                    license {
-                        name.set("Apache-2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
             }
         }
     }
