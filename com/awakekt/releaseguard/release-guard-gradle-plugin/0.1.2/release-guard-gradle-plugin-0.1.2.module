@@ -1,0 +1,116 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.awakekt.releaseguard",
+    "module": "release-guard-gradle-plugin",
+    "version": "0.1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "release-guard-gradle-plugin-0.1.2.jar",
+          "url": "release-guard-gradle-plugin-0.1.2.jar",
+          "size": 108649,
+          "sha512": "a931020ade71eaabfb214002112b138a48ea1d62a975fa96c2c78005520393643d126898260661d817f06e8a8f24a33ed1ef8862fb3464983368a7cf661a3d28",
+          "sha256": "8f40ef9b83df5948bdb2e9030f9b650f4142e536e13fe66b3790db377c5f9a1b",
+          "sha1": "dfc47660130f7102eaa8bb72d04cf0020115ed81",
+          "md5": "8fb77d35f9160f235ce8a279ff75b146"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.awakekt.releaseguard",
+          "module": "release-guard-core",
+          "version": {
+            "requires": "0.1.2"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.11.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "release-guard-gradle-plugin-0.1.2.jar",
+          "url": "release-guard-gradle-plugin-0.1.2.jar",
+          "size": 108649,
+          "sha512": "a931020ade71eaabfb214002112b138a48ea1d62a975fa96c2c78005520393643d126898260661d817f06e8a8f24a33ed1ef8862fb3464983368a7cf661a3d28",
+          "sha256": "8f40ef9b83df5948bdb2e9030f9b650f4142e536e13fe66b3790db377c5f9a1b",
+          "sha1": "dfc47660130f7102eaa8bb72d04cf0020115ed81",
+          "md5": "8fb77d35f9160f235ce8a279ff75b146"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "release-guard-gradle-plugin-0.1.2-sources.jar",
+          "url": "release-guard-gradle-plugin-0.1.2-sources.jar",
+          "size": 15401,
+          "sha512": "13d50be0764640cfab54d78a83ee9fdce129c0073a2b451e2c242c8490655d49d1b94c77ecc85a50c72f6cc8966b647e8a14bfa55050f17f689bc8c326a3fb7c",
+          "sha256": "db9dd900b5203f4d238d7fcb634e11e6a633fd25bbb8b3fb0fd46498b47b7b07",
+          "sha1": "d43fc96bdc7456c66cff486f578d06f72476fb44",
+          "md5": "ad2a5aee51bdeb4bce8d476724de9ad2"
+        }
+      ]
+    }
+  ]
+}

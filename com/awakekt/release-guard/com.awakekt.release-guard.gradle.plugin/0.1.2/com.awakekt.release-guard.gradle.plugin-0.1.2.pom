@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.awakekt.release-guard</groupId>
+  <artifactId>com.awakekt.release-guard.gradle.plugin</artifactId>
+  <version>0.1.2</version>
+  <packaging>pom</packaging>
+  <name>Release Guard Gradle Plugin</name>
+  <description>Configurable KMP release hardening, binary verification, and weighted hygiene scoring for Desktop JVM, Android APK/AAB, Web WASM/JS, iOS, and TLS.</description>
+  <url>https://github.com/awakekt/release-guard</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>ronjunevaldoz</id>
+      <name>Ron June Valdoz</name>
+      <url>https://github.com/awakekt</url>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/awakekt/release-guard.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/awakekt/release-guard.git</developerConnection>
+    <url>https://github.com/awakekt/release-guard</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/awakekt/release-guard/issues</url>
+  </issueManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.awakekt.releaseguard</groupId>
+      <artifactId>release-guard-gradle-plugin</artifactId>
+      <version>0.1.2</version>
+    </dependency>
+  </dependencies>
+</project>
