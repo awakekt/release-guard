@@ -52,17 +52,37 @@ public object DesktopJarAnalyzer {
 
         val libraryJars = input.librariesDirectory?.let(::listJars).orEmpty()
         val libraryMembers = collectLibraryMembers(gameJars, libraryJars, limits)
-        val parsedClasses = gameJars.flatMap { jar -> ClassFileReader.readJar(jar, limits) }
+        val allClasses = gameJars.flatMap { jar -> ClassFileReader.readJar(jar, limits) }
+        val ownJars = if (policy.desktop.ownJarNames.isEmpty()) {
+            gameJars
+        } else {
+            gameJars.filter { it.name in policy.desktop.ownJarNames }.ifEmpty { gameJars }
+        }
+        val ownClasses = if (ownJars.size == gameJars.size) {
+            allClasses
+        } else {
+            ownJars.flatMap { jar -> ClassFileReader.readJar(jar, limits) }
+        }
 
         val metrics = linkedMapOf(
             "desktop.gameJarCount" to gameJars.size.toString(),
-            "desktop.classCount" to parsedClasses.size.toString(),
+            "desktop.ownJarCount" to ownJars.size.toString(),
+            "desktop.classCount" to allClasses.size.toString(),
         )
         val findings = buildList {
-            add(checkReadability(parsedClasses, libraryMembers, policy, metrics))
-            add(checkProjectPackages(parsedClasses, policy, metrics))
-            add(checkSourceFileAttributes(parsedClasses, policy, metrics))
-            add(checkDebugTablesAndKotlinMetadata(parsedClasses, policy, metrics))
+            add(checkReadability(ownClasses, libraryMembers, policy, metrics))
+            add(checkProjectPackages(ownClasses, policy, metrics))
+            add(
+                ForbiddenClassInspector.check(
+                    checkId = "desktop.obfuscation.forbidden_classes",
+                    target = AuditTarget.DESKTOP_JVM,
+                    compiledInternalNames = allClasses.map { it.internalName },
+                    mappingFile = input.mappingFile,
+                    forbiddenClasses = policy.desktop.forbiddenClasses,
+                ),
+            )
+            add(checkSourceFileAttributes(ownClasses, policy, metrics))
+            add(checkDebugTablesAndKotlinMetadata(ownClasses, policy, metrics))
             add(checkBytecodeVerification(gameJars, libraryJars, policy, limits, metrics))
             add(checkMappingHygiene(gameJars, input.mappingFile, policy))
             add(checkNativeLibraries(gameJars, input.nativeLibsDirectory, policy, limits, metrics))

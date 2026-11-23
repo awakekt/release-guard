@@ -27,6 +27,12 @@ public enum class AuditTarget(public val displayName: String) {
 
     /** Build supply-chain and dependency hygiene checks (such as `-SNAPSHOT` gating). */
     SUPPLY_CHAIN("Supply Chain"),
+
+    /** Packaged 3D models, encrypted content containers, and SPIR-V / WGSL shaders. */
+    ASSETS_AND_SHADERS("Assets & Shaders"),
+
+    /** Game- or organization-specific checks contributed via `ReleaseGuardCheck` callbacks or SPI. */
+    CUSTOM("Custom Checks"),
 }
 
 /** Severity level assigned to a Release Guard finding. */
@@ -111,6 +117,8 @@ public data class AuditFinding(
     public val summary: String,
     public val evidence: List<String> = emptyList(),
     public val remediation: String = "",
+    public val attackerLevel: String = "",
+    public val plainEnglishImpact: String = "",
 )
 
 /** Score breakdown for a single audited [target]. */

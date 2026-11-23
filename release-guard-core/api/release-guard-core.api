@@ -5,24 +5,34 @@ public final class com/awakekt/releaseguard/ReleaseGuardAuditor {
 
 public final class com/awakekt/releaseguard/ReleaseGuardRequest {
 	public fun <init> ()V
-	public fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)V
-	public synthetic fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/List;ZLjava/util/Map;)V
+	public synthetic fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/List;ZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun component10 ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public final fun component11 ()Ljava/util/List;
+	public final fun component12 ()Ljava/util/List;
+	public final fun component13 ()Z
+	public final fun component14 ()Ljava/util/Map;
 	public final fun component2 ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
 	public final fun component3 ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
 	public final fun component4 ()Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
 	public final fun component5 ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
 	public final fun component6 ()Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;
 	public final fun component7 ()Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
-	public final fun component8 ()Lcom/awakekt/releaseguard/model/ReleaseScorecard;
-	public final fun component9 ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
-	public final fun copy (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/ReleaseGuardRequest;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
+	public final fun component8 ()Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
+	public final fun component9 ()Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public final fun copy (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/List;ZLjava/util/Map;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/ReleaseGuardRequest;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/List;ZLjava/util/Map;ILjava/lang/Object;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAndroid ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public final fun getAssets ()Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
 	public final fun getBaseline ()Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public final fun getCustomCheckClassNames ()Ljava/util/List;
+	public final fun getCustomChecks ()Ljava/util/List;
+	public final fun getCustomParameters ()Ljava/util/Map;
 	public final fun getDesktop ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
 	public final fun getIos ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public final fun getLoadServiceProviderChecks ()Z
 	public final fun getPolicy ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
 	public final fun getReadLimits ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
 	public final fun getSupplyChain ()Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
@@ -157,9 +167,30 @@ public final class com/awakekt/releaseguard/analyzers/ApplePlistSummary {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/awakekt/releaseguard/analyzers/AssetAuditInput {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArchiveFiles ()Ljava/util/List;
+	public final fun getAssetDirectories ()Ljava/util/List;
+	public final fun getShaderDirectories ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/awakekt/releaseguard/analyzers/AssetEncryptionInspector {
 	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/AssetEncryptionInspector;
+	public final fun computeByteEntropy ([B)D
 	public final fun inspectAwkbHeader (Ljava/lang/String;[B)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public final fun inspectContainer (Ljava/lang/String;[BLcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public final fun inspectCustomRule (Ljava/lang/String;[BLcom/awakekt/releaseguard/model/ContainerHeaderRule;)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public final fun matchesAnyContainer (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Z
 	public final fun matchesBundleExtension (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Z
 	public final fun toFinding (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/util/List;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Lcom/awakekt/releaseguard/model/AuditFinding;
 }
@@ -345,6 +376,11 @@ public final class com/awakekt/releaseguard/analyzers/ExportedComponentInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/awakekt/releaseguard/analyzers/ForbiddenClassInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/ForbiddenClassInspector;
+	public final fun check (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/util/Collection;Ljava/io/File;Ljava/util/List;)Lcom/awakekt/releaseguard/model/AuditFinding;
+}
+
 public final class com/awakekt/releaseguard/analyzers/IdentifierHeuristics {
 	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/IdentifierHeuristics;
 	public final fun computeReadability (Ljava/util/Collection;Ljava/util/List;Ljava/util/List;Z)Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;
@@ -520,6 +556,12 @@ public final class com/awakekt/releaseguard/analyzers/SecretScanner {
 	public final fun shannonEntropy (Ljava/lang/String;)D
 }
 
+public final class com/awakekt/releaseguard/analyzers/ShaderAndAssetAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/ShaderAndAssetAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun analyze$default (Lcom/awakekt/releaseguard/analyzers/ShaderAndAssetAnalyzer;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
 public final class com/awakekt/releaseguard/analyzers/SourcePathStats {
 	public fun <init> (Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
@@ -531,6 +573,37 @@ public final class com/awakekt/releaseguard/analyzers/SourcePathStats {
 	public final fun getProjectPaths ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SpirvInspection {
+	public fun <init> (Ljava/lang/String;ZIILjava/util/Set;ILjava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;ZIILjava/util/Set;ILjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/util/Set;
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;ZIILjava/util/Set;ILjava/util/List;)Lcom/awakekt/releaseguard/analyzers/SpirvInspection;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/SpirvInspection;Ljava/lang/String;ZIILjava/util/Set;ILjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/SpirvInspection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDebugInstructionCount ()I
+	public final fun getDebugOpcodeNames ()Ljava/util/Set;
+	public final fun getLeakedDebugStrings ()Ljava/util/List;
+	public final fun getPath ()Ljava/lang/String;
+	public final fun getVersionMajor ()I
+	public final fun getVersionMinor ()I
+	public fun hashCode ()I
+	public final fun isValidSpirv ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SpirvShaderInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/SpirvShaderInspector;
+	public final fun inspect (Ljava/lang/String;[B)Lcom/awakekt/releaseguard/analyzers/SpirvInspection;
+	public final fun isSpirv ([B)Z
+	public final fun stripDebugOpcodes ([B)[B
 }
 
 public final class com/awakekt/releaseguard/analyzers/SupplyChainAnalyzer {
@@ -722,6 +795,7 @@ public final class com/awakekt/releaseguard/io/BoundedBinaryIo {
 	public static final field INSTANCE Lcom/awakekt/releaseguard/io/BoundedBinaryIo;
 	public final fun readFileBounded (Ljava/io/File;J)[B
 	public static synthetic fun readFileBounded$default (Lcom/awakekt/releaseguard/io/BoundedBinaryIo;Ljava/io/File;JILjava/lang/Object;)[B
+	public final fun readFilePrefix (Ljava/io/File;I)[B
 	public final fun readStreamBounded (Ljava/io/InputStream;JLjava/lang/String;)[B
 	public final fun readTextBounded (Ljava/io/File;J)Ljava/lang/String;
 	public static synthetic fun readTextBounded$default (Lcom/awakekt/releaseguard/io/BoundedBinaryIo;Ljava/io/File;JILjava/lang/Object;)Ljava/lang/String;
@@ -739,8 +813,8 @@ public final class com/awakekt/releaseguard/io/ZipReadBudget {
 public final class com/awakekt/releaseguard/model/AndroidAuditPolicy {
 	public static final field Companion Lcom/awakekt/releaseguard/model/AndroidAuditPolicy$Companion;
 	public fun <init> ()V
-	public fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZ)V
-	public synthetic fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZLjava/util/List;)V
+	public synthetic fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()D
 	public final fun component10 ()Ljava/util/Set;
 	public final fun component11 ()Z
@@ -754,6 +828,7 @@ public final class com/awakekt/releaseguard/model/AndroidAuditPolicy {
 	public final fun component19 ()Z
 	public final fun component2 ()I
 	public final fun component20 ()Z
+	public final fun component21 ()Ljava/util/List;
 	public final fun component3 ()Z
 	public final fun component4 ()Z
 	public final fun component5 ()Z
@@ -761,8 +836,8 @@ public final class com/awakekt/releaseguard/model/AndroidAuditPolicy {
 	public final fun component7 ()Z
 	public final fun component8 ()Ljava/lang/Integer;
 	public final fun component9 ()Z
-	public final fun copy (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZ)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public final fun copy (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZLjava/util/List;)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAllowedExportedComponents ()Ljava/util/Set;
 	public final fun getExpectedSigningDigestsSha256 ()Ljava/util/Set;
@@ -776,6 +851,7 @@ public final class com/awakekt/releaseguard/model/AndroidAuditPolicy {
 	public final fun getForbidTestOnly ()Z
 	public final fun getForbidWeakNetworkSecurityConfig ()Z
 	public final fun getForbiddenArtifactPatterns ()Ljava/util/List;
+	public final fun getForbiddenClasses ()Ljava/util/List;
 	public final fun getInspectNativeElfLibraries ()Z
 	public final fun getMaxKeptProjectClasses ()I
 	public final fun getMaxOwnReadability ()D
@@ -807,16 +883,20 @@ public final class com/awakekt/releaseguard/model/AndroidAuditPolicy$Companion {
 public final class com/awakekt/releaseguard/model/AssetEncryptionPolicy {
 	public static final field Companion Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy$Companion;
 	public fun <init> ()V
-	public fun <init> (ZLjava/util/Set;Z)V
-	public synthetic fun <init> (ZLjava/util/Set;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZLjava/util/Set;ZLjava/util/List;Ljava/lang/Double;)V
+	public synthetic fun <init> (ZLjava/util/Set;ZLjava/util/List;Ljava/lang/Double;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Ljava/util/Set;
 	public final fun component3 ()Z
-	public final fun copy (ZLjava/util/Set;Z)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;ZLjava/util/Set;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/Double;
+	public final fun copy (ZLjava/util/Set;ZLjava/util/List;Ljava/lang/Double;)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;ZLjava/util/Set;ZLjava/util/List;Ljava/lang/Double;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBundleExtensions ()Ljava/util/Set;
+	public final fun getCustomContainerRules ()Ljava/util/List;
 	public final fun getEnabled ()Z
+	public final fun getMinContainerEntropy ()Ljava/lang/Double;
 	public final fun getRequireAwkbV2EncryptedFlag ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -837,11 +917,49 @@ public final class com/awakekt/releaseguard/model/AssetEncryptionPolicy$Companio
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class com/awakekt/releaseguard/model/AssetSecurityPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/AssetSecurityPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZLjava/util/Set;ZLjava/util/List;)V
+	public synthetic fun <init> (ZLjava/util/Set;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/util/Set;
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (ZLjava/util/Set;ZLjava/util/List;)Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;ZLjava/util/Set;ZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowedPlaintextPathRegexes ()Ljava/util/List;
+	public final fun getEnabled ()Z
+	public final fun getForbidRawModelExtensions ()Ljava/util/Set;
+	public final fun getSniffModelMagicBytes ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/AssetSecurityPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/AssetSecurityPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AssetSecurityPolicy$Companion {
+	public final fun getDEFAULT_RAW_MODEL_EXTENSIONS ()Ljava/util/Set;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class com/awakekt/releaseguard/model/AuditFinding {
 	public static final field Companion Lcom/awakekt/releaseguard/model/AuditFinding$Companion;
-	public fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
 	public final fun component2 ()Lcom/awakekt/releaseguard/model/AuditTarget;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Lcom/awakekt/releaseguard/model/CheckStatus;
@@ -850,11 +968,13 @@ public final class com/awakekt/releaseguard/model/AuditFinding {
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;)Lcom/awakekt/releaseguard/model/AuditFinding;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AuditFinding;Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AuditFinding;
+	public final fun copy (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/awakekt/releaseguard/model/AuditFinding;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AuditFinding;Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AuditFinding;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttackerLevel ()Ljava/lang/String;
 	public final fun getCheckId ()Ljava/lang/String;
 	public final fun getEvidence ()Ljava/util/List;
+	public final fun getPlainEnglishImpact ()Ljava/lang/String;
 	public final fun getRemediation ()Ljava/lang/String;
 	public final fun getSeverity ()Lcom/awakekt/releaseguard/model/CheckSeverity;
 	public final fun getStatus ()Lcom/awakekt/releaseguard/model/CheckStatus;
@@ -883,6 +1003,8 @@ public final class com/awakekt/releaseguard/model/AuditFinding$Companion {
 
 public final class com/awakekt/releaseguard/model/AuditTarget : java/lang/Enum {
 	public static final field ANDROID Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field ASSETS_AND_SHADERS Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field CUSTOM Lcom/awakekt/releaseguard/model/AuditTarget;
 	public static final field Companion Lcom/awakekt/releaseguard/model/AuditTarget$Companion;
 	public static final field DESKTOP_JVM Lcom/awakekt/releaseguard/model/AuditTarget;
 	public static final field IOS Lcom/awakekt/releaseguard/model/AuditTarget;
@@ -1003,13 +1125,57 @@ public final class com/awakekt/releaseguard/model/CheckStatus$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class com/awakekt/releaseguard/model/ContainerHeaderRule {
+	public static final field Companion Lcom/awakekt/releaseguard/model/ContainerHeaderRule$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Integer;ILjava/lang/Integer;IZ)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Integer;ILjava/lang/Integer;IZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()I
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()I
+	public final fun component8 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Integer;ILjava/lang/Integer;IZ)Lcom/awakekt/releaseguard/model/ContainerHeaderRule;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ContainerHeaderRule;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Integer;ILjava/lang/Integer;IZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ContainerHeaderRule;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpectedMagicAscii ()Ljava/lang/String;
+	public final fun getExtension ()Ljava/lang/String;
+	public final fun getFlagsOffset ()Ljava/lang/Integer;
+	public final fun getLittleEndian ()Z
+	public final fun getMinHeaderBytes ()I
+	public final fun getMinVersion ()I
+	public final fun getRequiredFlagsMask ()I
+	public final fun getVersionOffset ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/ContainerHeaderRule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/ContainerHeaderRule$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/ContainerHeaderRule;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/ContainerHeaderRule;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ContainerHeaderRule$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class com/awakekt/releaseguard/model/DesktopAuditPolicy {
 	public static final field Companion Lcom/awakekt/releaseguard/model/DesktopAuditPolicy$Companion;
 	public fun <init> ()V
-	public fun <init> (DIZZZZZZZZ)V
-	public synthetic fun <init> (DIZZZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (DIZZZZZZZZLjava/util/List;Ljava/util/Set;)V
+	public synthetic fun <init> (DIZZZZZZZZLjava/util/List;Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()D
 	public final fun component10 ()Z
+	public final fun component11 ()Ljava/util/List;
+	public final fun component12 ()Ljava/util/Set;
 	public final fun component2 ()I
 	public final fun component3 ()Z
 	public final fun component4 ()Z
@@ -1018,16 +1184,18 @@ public final class com/awakekt/releaseguard/model/DesktopAuditPolicy {
 	public final fun component7 ()Z
 	public final fun component8 ()Z
 	public final fun component9 ()Z
-	public final fun copy (DIZZZZZZZZ)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;DIZZZZZZZZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public final fun copy (DIZZZZZZZZLjava/util/List;Ljava/util/Set;)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;DIZZZZZZZZLjava/util/List;Ljava/util/Set;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getForbidDebugTablesAndKotlinMetadata ()Z
 	public final fun getForbidJpackageDebugFlags ()Z
 	public final fun getForbidLeakedPdbPaths ()Z
 	public final fun getForbidOriginalSourceFileAttribute ()Z
+	public final fun getForbiddenClasses ()Ljava/util/List;
 	public final fun getInspectNativeLibraries ()Z
 	public final fun getMaxKeptProjectClasses ()I
 	public final fun getMaxOwnReadability ()D
+	public final fun getOwnJarNames ()Ljava/util/Set;
 	public final fun getRequireMappingFile ()Z
 	public final fun getRequirePeAslrAndDep ()Z
 	public final fun getVerifyBytecode ()Z
@@ -1127,8 +1295,8 @@ public final class com/awakekt/releaseguard/model/ReleaseGuardPolicies {
 public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy {
 	public static final field Companion Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)V
-	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component10 ()Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
 	public final fun component11 ()Lcom/awakekt/releaseguard/model/WebAuditPolicy;
@@ -1136,8 +1304,10 @@ public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy {
 	public final fun component13 ()Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
 	public final fun component14 ()Lcom/awakekt/releaseguard/model/SecretScanPolicy;
 	public final fun component15 ()Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
-	public final fun component16 ()Lcom/awakekt/releaseguard/model/BaselinePolicy;
-	public final fun component17 ()Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public final fun component16 ()Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;
+	public final fun component17 ()Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;
+	public final fun component18 ()Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public final fun component19 ()Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()I
 	public final fun component4 ()Lcom/awakekt/releaseguard/model/CheckSeverity;
@@ -1146,12 +1316,13 @@ public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy {
 	public final fun component7 ()Ljava/util/Map;
 	public final fun component8 ()Ljava/util/Map;
 	public final fun component9 ()Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
-	public final fun copy (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
-	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun copy (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAllowedLibraryPathPatterns ()Ljava/util/List;
 	public final fun getAndroid ()Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
 	public final fun getAssetEncryption ()Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public final fun getAssetSecurity ()Lcom/awakekt/releaseguard/model/AssetSecurityPolicy;
 	public final fun getBaseline ()Lcom/awakekt/releaseguard/model/BaselinePolicy;
 	public final fun getDesktop ()Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
 	public final fun getDisabledChecks ()Ljava/util/Set;
@@ -1162,6 +1333,7 @@ public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy {
 	public final fun getProjectPackages ()Ljava/util/List;
 	public final fun getSecrets ()Lcom/awakekt/releaseguard/model/SecretScanPolicy;
 	public final fun getSeverityOverrides ()Ljava/util/Map;
+	public final fun getShaderSecurity ()Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;
 	public final fun getSupplyChain ()Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
 	public final fun getTls ()Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
 	public final fun getWeb ()Lcom/awakekt/releaseguard/model/WebAuditPolicy;
@@ -1264,6 +1436,44 @@ public final synthetic class com/awakekt/releaseguard/model/SecretScanPolicy$$se
 }
 
 public final class com/awakekt/releaseguard/model/SecretScanPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ShaderSecurityPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZZLjava/util/Set;ZLjava/util/List;)V
+	public synthetic fun <init> (ZZLjava/util/Set;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/util/Set;
+	public final fun component4 ()Z
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (ZZLjava/util/Set;ZLjava/util/List;)Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;ZZLjava/util/Set;ZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowedShaderPathRegexes ()Ljava/util/List;
+	public final fun getEnabled ()Z
+	public final fun getForbidRawShaderExtensions ()Ljava/util/Set;
+	public final fun getForbidSpirvDebugInfo ()Z
+	public final fun getForbidWgslComments ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/ShaderSecurityPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/ShaderSecurityPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ShaderSecurityPolicy$Companion {
+	public final fun getDEFAULT_RAW_SHADER_EXTENSIONS ()Ljava/util/Set;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
@@ -1488,5 +1698,49 @@ public final class com/awakekt/releaseguard/report/SarifReportRenderer {
 	public static final field INSTANCE Lcom/awakekt/releaseguard/report/SarifReportRenderer;
 	public final fun renderSarif (Lcom/awakekt/releaseguard/model/ReleaseScorecard;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun renderSarif$default (Lcom/awakekt/releaseguard/report/SarifReportRenderer;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/spi/AuditContext {
+	public fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;)V
+	public synthetic fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun component10 ()Ljava/util/Map;
+	public final fun component2 ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public final fun component3 ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public final fun component4 ()Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public final fun component5 ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public final fun component6 ()Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
+	public final fun component7 ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/util/Map;
+	public final fun copy (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;)Lcom/awakekt/releaseguard/spi/AuditContext;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/spi/AuditContext;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;Lcom/awakekt/releaseguard/io/BinaryReadLimits;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;ILjava/lang/Object;)Lcom/awakekt/releaseguard/spi/AuditContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroid ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public final fun getAssets ()Lcom/awakekt/releaseguard/analyzers/AssetAuditInput;
+	public final fun getBuiltInFindings ()Ljava/util/List;
+	public final fun getBuiltInMetrics ()Ljava/util/Map;
+	public final fun getCustomParameters ()Ljava/util/Map;
+	public final fun getDesktop ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public final fun getIos ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public final fun getPolicy ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun getReadLimits ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public final fun getWeb ()Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/awakekt/releaseguard/spi/ReleaseGuardCheck {
+	public static final field Companion Lcom/awakekt/releaseguard/spi/ReleaseGuardCheck$Companion;
+	public abstract fun evaluate (Lcom/awakekt/releaseguard/spi/AuditContext;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/spi/ReleaseGuardCheck$Companion {
+	public final fun findingsOnly (Lkotlin/jvm/functions/Function1;)Lcom/awakekt/releaseguard/spi/ReleaseGuardCheck;
+}
+
+public abstract interface class com/awakekt/releaseguard/spi/ReleaseGuardCheckProvider {
+	public abstract fun createChecks ()Ljava/util/List;
+	public abstract fun getId ()Ljava/lang/String;
 }
 

@@ -271,18 +271,69 @@ public object FindingExplainer {
             plainEnglishImpact = "Shipping mutable -SNAPSHOT dependencies means two builds from the same commit can silently pull different code.",
             passingMeaning = "All resolved release dependencies are pinned to immutable versions.",
         ),
+        "desktop.obfuscation.forbidden_classes" to FindingExplanation(
+            attackerLevel = "Rookie (Decompiler / Launcher Bypass)",
+            plainEnglishImpact = "A debug, dev-overlay, or offline-simulation class survived inside your release JARs (even if renamed), letting attackers invoke disabled gameplay or cheat paths locally.",
+            passingMeaning = "All configured forbidden debug/offline classes were completely shrunk out of release desktop JARs and mapping files.",
+        ),
+        "android.obfuscation.forbidden_classes" to FindingExplanation(
+            attackerLevel = "Rookie (Jadx / Frida)",
+            plainEnglishImpact = "A forbidden debug or offline-mode class survived R8 shrinking inside your APK/AAB, allowing attackers to hook or invoke internal code paths.",
+            passingMeaning = "All configured forbidden debug/offline classes are absent from release DEX bytecode and R8 mapping.",
+        ),
+        "assets.models.unencrypted_leak" to FindingExplanation(
+            attackerLevel = "Rookie (Unzip / Blender Import)",
+            plainEnglishImpact = "Unencrypted 3D model files (.glb/.gltf/.fbx) or raw model binaries are sitting in your release output — anyone can unzip and open your characters, maps, or unreleased models straight in Blender in seconds.",
+            passingMeaning = "No raw unencrypted 3D model files or glTF/FBX binary headers were found in release assets.",
+        ),
+        "assets.containers.encryption" to FindingExplanation(
+            attackerLevel = "Rookie (Unzip / Hex Editor)",
+            plainEnglishImpact = "Packaged asset containers are missing expected encryption header flags or show low-entropy plaintext payloads, making bulk art and data ripping trivial.",
+            passingMeaning = "All inspected asset containers satisfy configured encryption header and entropy checks.",
+        ),
+        "shaders.spirv.debug_info" to FindingExplanation(
+            attackerLevel = "Rookie to Intermediate (SPIRV-Cross)",
+            plainEnglishImpact = "Compiled SPIR-V shaders still carry OpSource, OpName, or OpLine debug info — running SPIRV-Cross reconstructs your original shader source with full variable and struct names.",
+            passingMeaning = "All SPIR-V shader binaries have debug names and source metadata stripped.",
+        ),
+        "shaders.source.exposure" to FindingExplanation(
+            attackerLevel = "Rookie (Text Editor / Unzip)",
+            plainEnglishImpact = "Raw shader source files (.glsl/.hlsl/.asl) or commented WGSL shaders are bundled directly in your release output for anyone to copy verbatim.",
+            passingMeaning = "No raw uncompiled shader source files or forbidden shader comments were found.",
+        ),
+        "custom.check.load_error" to FindingExplanation(
+            attackerLevel = "Build Pipeline",
+            plainEnglishImpact = "A registered custom ReleaseGuardCheck class could not be instantiated, so your game-specific security rule did not run.",
+            passingMeaning = "Custom ReleaseGuardCheck loaded cleanly.",
+        ),
+        "custom.check.execution_error" to FindingExplanation(
+            attackerLevel = "Build Pipeline",
+            plainEnglishImpact = "A custom ReleaseGuardCheck threw an exception while auditing your release build.",
+            passingMeaning = "Custom ReleaseGuardCheck executed without errors.",
+        ),
     )
 
     /** Returns a plain-English [FindingExplanation] for [finding]. */
-    public fun explain(finding: AuditFinding): FindingExplanation = catalog[finding.checkId] ?: FindingExplanation(
-        attackerLevel = when (finding.severity.rank) {
-            4, 3 -> "Rookie to Intermediate"
-            2 -> "Intermediate"
-            else -> "Hygiene Polish"
-        },
-        plainEnglishImpact = finding.summary,
-        passingMeaning = finding.summary,
-    )
+    public fun explain(finding: AuditFinding): FindingExplanation {
+        if (finding.plainEnglishImpact.isNotBlank()) {
+            return FindingExplanation(
+                attackerLevel = finding.attackerLevel.ifBlank { "Custom Check" },
+                plainEnglishImpact = finding.plainEnglishImpact,
+                passingMeaning = finding.summary,
+            )
+        }
+        return catalog[finding.checkId] ?: FindingExplanation(
+            attackerLevel = finding.attackerLevel.ifBlank {
+                when (finding.severity.rank) {
+                    4, 3 -> "Rookie to Intermediate"
+                    2 -> "Intermediate"
+                    else -> "Hygiene Polish"
+                }
+            },
+            plainEnglishImpact = finding.summary,
+            passingMeaning = finding.summary,
+        )
+    }
 
     /** Returns the most relevant plain-English sentence for [finding] based on its current [AuditFinding.status]. */
     public fun narrativeFor(finding: AuditFinding): String {

@@ -6,6 +6,7 @@
 package com.awakekt.releaseguard.gradle
 
 import org.gradle.api.Action
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
@@ -87,6 +88,8 @@ public abstract class DesktopGuardSpec @Inject constructor(objects: ObjectFactor
     public val requirePeAslrAndDep: Property<Boolean> = objects.property(Boolean::class.java)
     public val forbidLeakedPdbPaths: Property<Boolean> = objects.property(Boolean::class.java)
     public val forbidJpackageDebugFlags: Property<Boolean> = objects.property(Boolean::class.java)
+    public val forbiddenClasses: ListProperty<String> = objects.listProperty(String::class.java)
+    public val ownJarNames: SetProperty<String> = objects.setProperty(String::class.java)
 }
 
 /** Web (Kotlin/Wasm + JS) hardening, stripping, and audit settings. */
@@ -141,6 +144,7 @@ public abstract class AndroidGuardSpec @Inject constructor(objects: ObjectFactor
     public val forbiddenArtifactPatterns: ListProperty<String> = objects.listProperty(String::class.java)
     public val forbidSensitiveBundledFiles: Property<Boolean> = objects.property(Boolean::class.java)
     public val requireMappingFile: Property<Boolean> = objects.property(Boolean::class.java)
+    public val forbiddenClasses: ListProperty<String> = objects.listProperty(String::class.java)
 }
 
 /** iOS `.framework`, `.xcframework`, `.ipa`, and Mach-O audit settings. */
@@ -183,6 +187,36 @@ public abstract class SecretGuardSpec @Inject constructor(objects: ObjectFactory
 public abstract class AssetEncryptionGuardSpec @Inject constructor(objects: ObjectFactory) {
     public val enabled: Property<Boolean> = objects.property(Boolean::class.java)
     public val bundleExtensions: SetProperty<String> = objects.setProperty(String::class.java)
+    public val minContainerEntropy: Property<Double> = objects.property(Double::class.java)
+}
+
+/** Generic 3D model and packaged asset leak verification settings. */
+public abstract class AssetSecurityGuardSpec @Inject constructor(objects: ObjectFactory) {
+    public val enabled: Property<Boolean> = objects.property(Boolean::class.java)
+    public val directories: ConfigurableFileCollection = objects.fileCollection()
+    public val archiveFiles: ConfigurableFileCollection = objects.fileCollection()
+    public val forbidRawModelExtensions: SetProperty<String> = objects.setProperty(String::class.java)
+    public val sniffModelMagicBytes: Property<Boolean> = objects.property(Boolean::class.java)
+    public val allowedPlaintextPathRegexes: ListProperty<String> = objects.listProperty(String::class.java)
+}
+
+/** Generic SPIR-V bytecode and WGSL/GLSL shader security settings. */
+public abstract class ShaderSecurityGuardSpec @Inject constructor(objects: ObjectFactory) {
+    public val enabled: Property<Boolean> = objects.property(Boolean::class.java)
+    public val directories: ConfigurableFileCollection = objects.fileCollection()
+    public val stripInputDir: DirectoryProperty = objects.directoryProperty()
+    public val stripOutputDir: DirectoryProperty = objects.directoryProperty()
+    public val forbidSpirvDebugInfo: Property<Boolean> = objects.property(Boolean::class.java)
+    public val forbidRawShaderExtensions: SetProperty<String> = objects.setProperty(String::class.java)
+    public val forbidWgslComments: Property<Boolean> = objects.property(Boolean::class.java)
+    public val allowedShaderPathRegexes: ListProperty<String> = objects.listProperty(String::class.java)
+}
+
+/** Configuration-cache-safe registration of custom game/authoring checks via SPI or class names. */
+public abstract class CustomChecksGuardSpec @Inject constructor(objects: ObjectFactory) {
+    public val checkClasses: ListProperty<String> = objects.listProperty(String::class.java)
+    public val loadServiceProviders: Property<Boolean> = objects.property(Boolean::class.java)
+    public val parameters: MapProperty<String, String> = objects.mapProperty(String::class.java, String::class.java)
 }
 
 /** Supply-chain and baseline regression gating settings. */
@@ -206,6 +240,7 @@ public abstract class ReportsGuardSpec @Inject constructor(objects: ObjectFactor
 /**
  * Top-level Gradle DSL extension (`releaseGuard { ... }`) registered by `com.awakekt.release-guard`.
  */
+@Suppress("TooManyFunctions")
 public abstract class ReleaseGuardExtension @Inject constructor(objects: ObjectFactory) {
     public val projectPackages: ListProperty<String> = objects.listProperty(String::class.java)
     public val projectKeywords: ListProperty<String> = objects.listProperty(String::class.java)
@@ -241,6 +276,15 @@ public abstract class ReleaseGuardExtension @Inject constructor(objects: ObjectF
     public val assetEncryption: AssetEncryptionGuardSpec = objects.newInstance(AssetEncryptionGuardSpec::class.java)
 
     @get:Nested
+    public val assets: AssetSecurityGuardSpec = objects.newInstance(AssetSecurityGuardSpec::class.java)
+
+    @get:Nested
+    public val shaders: ShaderSecurityGuardSpec = objects.newInstance(ShaderSecurityGuardSpec::class.java)
+
+    @get:Nested
+    public val customChecks: CustomChecksGuardSpec = objects.newInstance(CustomChecksGuardSpec::class.java)
+
+    @get:Nested
     public val supplyChain: SupplyChainGuardSpec = objects.newInstance(SupplyChainGuardSpec::class.java)
 
     @get:Nested
@@ -254,6 +298,9 @@ public abstract class ReleaseGuardExtension @Inject constructor(objects: ObjectF
     public fun tls(action: Action<in TlsGuardSpec>): Unit = action.execute(tls)
     public fun secrets(action: Action<in SecretGuardSpec>): Unit = action.execute(secrets)
     public fun assetEncryption(action: Action<in AssetEncryptionGuardSpec>): Unit = action.execute(assetEncryption)
+    public fun assets(action: Action<in AssetSecurityGuardSpec>): Unit = action.execute(assets)
+    public fun shaders(action: Action<in ShaderSecurityGuardSpec>): Unit = action.execute(shaders)
+    public fun customChecks(action: Action<in CustomChecksGuardSpec>): Unit = action.execute(customChecks)
     public fun supplyChain(action: Action<in SupplyChainGuardSpec>): Unit = action.execute(supplyChain)
     public fun reports(action: Action<in ReportsGuardSpec>): Unit = action.execute(reports)
 }

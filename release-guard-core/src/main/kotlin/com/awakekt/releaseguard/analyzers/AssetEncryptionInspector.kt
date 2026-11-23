@@ -10,9 +10,11 @@ import com.awakekt.releaseguard.model.AuditFinding
 import com.awakekt.releaseguard.model.AuditTarget
 import com.awakekt.releaseguard.model.CheckSeverity
 import com.awakekt.releaseguard.model.CheckStatus
+import com.awakekt.releaseguard.model.ContainerHeaderRule
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.Locale
+import kotlin.math.ln
 
 /** Inspection result for a single content bundle header. */
 public data class BundleHeaderCheck(
@@ -34,6 +36,82 @@ public object AssetEncryptionInspector {
     public fun matchesBundleExtension(path: String, policy: AssetEncryptionPolicy): Boolean {
         val ext = path.substringAfterLast('.', "").lowercase(Locale.ROOT)
         return ext.isNotEmpty() && policy.bundleExtensions.any { it.lowercase(Locale.ROOT) == ext }
+    }
+
+    /** Returns `true` when [path] matches either default `.awkb` bundle extensions or any custom container rule. */
+    public fun matchesAnyContainer(path: String, policy: AssetEncryptionPolicy): Boolean {
+        if (matchesBundleExtension(path, policy)) return true
+        val ext = path.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        return ext.isNotEmpty() &&
+            policy.customContainerRules.any { it.extension.lowercase(Locale.ROOT).removePrefix(".") == ext }
+    }
+
+    /** Inspects a container at [path] using a matching [ContainerHeaderRule] or `.awkb` v2 header rules + optional entropy floor. */
+    public fun inspectContainer(
+        path: String,
+        sampleBytes: ByteArray,
+        policy: AssetEncryptionPolicy,
+    ): BundleHeaderCheck {
+        val ext = path.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        val customRule = policy.customContainerRules.firstOrNull {
+            it.extension.lowercase(Locale.ROOT).removePrefix(".") == ext
+        }
+        val base = if (customRule != null) {
+            inspectCustomRule(path, sampleBytes, customRule)
+        } else {
+            inspectAwkbHeader(path, sampleBytes)
+        }
+        val minEntropy = policy.minContainerEntropy
+        if (!base.isEncrypted || minEntropy == null || sampleBytes.size < 256) return base
+        val payload = sampleBytes.copyOfRange(minOf(64, sampleBytes.size), sampleBytes.size)
+        val entropy = computeByteEntropy(payload)
+        return if (entropy < minEntropy) {
+            base.copy(
+                isEncrypted = false,
+                detail = "${base.detail}; low payload entropy ${String.format(Locale.ROOT, "%.2f", entropy)} < $minEntropy",
+            )
+        } else {
+            base
+        }
+    }
+
+    /** Inspects a container header against a generic declarative [rule]. */
+    public fun inspectCustomRule(path: String, bytes: ByteArray, rule: ContainerHeaderRule): BundleHeaderCheck {
+        val expectedMagic = rule.expectedMagicAscii.toByteArray(Charsets.US_ASCII)
+        return when {
+            bytes.size < rule.minHeaderBytes || bytes.size < expectedMagic.size ->
+                BundleHeaderCheck(path, false, "truncated header (${bytes.size} bytes)")
+            !expectedMagic.indices.all { idx -> bytes[idx] == expectedMagic[idx] } ->
+                BundleHeaderCheck(path, false, "unexpected magic (expected '${rule.expectedMagicAscii}')")
+            else -> {
+                val order = if (rule.littleEndian) ByteOrder.LITTLE_ENDIAN else ByteOrder.BIG_ENDIAN
+                val buf = ByteBuffer.wrap(bytes).order(order)
+                val versionOk = rule.versionOffset?.let { off ->
+                    bytes.size >= off + 2 && (buf.getShort(off).toInt() and 0xFFFF) >= rule.minVersion
+                } ?: true
+                val flagsOk = rule.flagsOffset?.let { off ->
+                    bytes.size >= off + 2 && ((buf.getShort(off).toInt() and 0xFFFF) and rule.requiredFlagsMask) == rule.requiredFlagsMask
+                } ?: true
+                val ok = versionOk && flagsOk
+                BundleHeaderCheck(path, ok, "${rule.extension} magic='${rule.expectedMagicAscii}' ok=$ok")
+            }
+        }
+    }
+
+    /** Computes Shannon entropy in bits per byte (`0.0..8.0`) over [bytes]. */
+    public fun computeByteEntropy(bytes: ByteArray): Double {
+        if (bytes.isEmpty()) return 0.0
+        val counts = IntArray(256)
+        for (b in bytes) counts[b.toInt() and 0xFF]++
+        val total = bytes.size.toDouble()
+        var entropy = 0.0
+        for (c in counts) {
+            if (c > 0) {
+                val p = c / total
+                entropy -= p * (ln(p) / ln(2.0))
+            }
+        }
+        return entropy
     }
 
     /** Inspects the first header bytes of a `.awkb` content bundle at [path]. */

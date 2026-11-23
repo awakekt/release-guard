@@ -64,6 +64,13 @@ public object AndroidArtifactAnalyzer {
 
         val findings = listOf(
             checkDexObfuscation(scan.dexSummaries, policy, metrics),
+            ForbiddenClassInspector.check(
+                checkId = "android.obfuscation.forbidden_classes",
+                target = AuditTarget.ANDROID,
+                compiledInternalNames = scan.dexSummaries.flatMap { it.definedClasses },
+                mappingFile = input.mappingFile,
+                forbiddenClasses = policy.android.forbiddenClasses,
+            ),
             checkAndroidKotlinMetadata(scan.dexSummaries, policy),
             checkAndroidManifestDebuggable(scan.manifestFlags, policy),
             checkAndroidBackupAndCleartext(scan.manifestFlags, policy),

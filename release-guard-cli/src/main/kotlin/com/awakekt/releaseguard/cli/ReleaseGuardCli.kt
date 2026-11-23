@@ -8,8 +8,10 @@ package com.awakekt.releaseguard.cli
 import com.awakekt.releaseguard.ReleaseGuardAuditor
 import com.awakekt.releaseguard.ReleaseGuardRequest
 import com.awakekt.releaseguard.analyzers.AndroidAuditInput
+import com.awakekt.releaseguard.analyzers.AssetAuditInput
 import com.awakekt.releaseguard.analyzers.DesktopAuditInput
 import com.awakekt.releaseguard.analyzers.IosAuditInput
+import com.awakekt.releaseguard.analyzers.SpirvShaderInspector
 import com.awakekt.releaseguard.analyzers.TlsAuditInput
 import com.awakekt.releaseguard.analyzers.TlsPinAnalyzer
 import com.awakekt.releaseguard.analyzers.WebAuditInput
@@ -53,6 +55,7 @@ public object ReleaseGuardCli {
             when (args[0]) {
                 "audit" -> runAudit(args.drop(1), out, err)
                 "strip-web" -> runStripWeb(args.drop(1), out)
+                "strip-spirv" -> runStripSpirv(args.drop(1), out)
                 "print-tls-pins" -> runPrintTlsPins(args.drop(1), out)
                 "init-policy" -> runInitPolicy(args.drop(1), out)
                 else -> {
@@ -104,7 +107,7 @@ public object ReleaseGuardCli {
     }
 
     private fun resolveAuditPolicy(parsed: ParsedAuditArgs): ReleaseGuardPolicy {
-        var policy = parsed.policyFile?.let { file ->
+        val base = parsed.policyFile?.let { file ->
             require(file.isFile) { "Policy JSON file does not exist: ${file.path}" }
             json.decodeFromString(ReleaseGuardPolicy.serializer(), file.readText(Charsets.UTF_8))
         } ?: when (parsed.preset) {
@@ -112,21 +115,18 @@ public object ReleaseGuardCli {
             "dev", "development" -> ReleaseGuardPolicies.developmentAudit()
             else -> ReleaseGuardPolicies.balancedRelease()
         }
-        if (parsed.projectPackages.isNotEmpty()) policy = policy.copy(projectPackages = parsed.projectPackages)
-        if (parsed.projectKeywords.isNotEmpty()) policy = policy.copy(projectKeywords = parsed.projectKeywords)
-        if (parsed.minScore != null) policy = policy.copy(minScore = parsed.minScore)
-        if (parsed.failOnSeveritySet) policy = policy.copy(failOnSeverity = parsed.failOnSeverity)
-        if (parsed.webMode != null) policy = policy.copy(web = policy.web.copy(mode = parsed.webMode))
-        if (parsed.probeLiveTls) policy = policy.copy(tls = policy.tls.copy(probeLiveHosts = true))
-        if (parsed.failOnRegression) policy = policy.copy(baseline = policy.baseline.copy(failOnRegression = true))
-        if (parsed.requireEncryptedAssets) policy = policy.copy(assetEncryption = policy.assetEncryption.copy(enabled = true))
-        return policy
+        return applyCliPolicyOverrides(base, parsed)
     }
 
     private fun buildAuditRequest(parsed: ParsedAuditArgs, policy: ReleaseGuardPolicy): ReleaseGuardRequest {
         val baseline = parsed.baselineFile?.let { file ->
             require(file.isFile) { "Baseline scorecard JSON does not exist: ${file.path}" }
             ReleaseGuardReportRenderer.parseJson(file.readText(Charsets.UTF_8))
+        }
+        val assetsInput = if (parsed.assetDirs.isNotEmpty() || parsed.shaderDirs.isNotEmpty()) {
+            AssetAuditInput(assetDirectories = parsed.assetDirs, shaderDirectories = parsed.shaderDirs)
+        } else {
+            null
         }
         val request = ReleaseGuardRequest(
             policy = policy,
@@ -144,13 +144,47 @@ public object ReleaseGuardCli {
             web = parsed.webDir?.let { WebAuditInput(it) },
             ios = parsed.iosArtifact?.let { IosAuditInput(it, parsed.iosPlist) },
             tls = parsed.tlsPins?.let { TlsAuditInput(it, parsed.tlsProbeHosts) },
+            assets = assetsInput,
             baseline = baseline,
+            customCheckClassNames = parsed.customCheckClasses,
+            customParameters = parsed.customParams,
         )
-        val hasAnyTarget = listOf(request.desktop, request.android, request.web, request.ios, request.tls).any { it != null }
+        val hasAnyTarget =
+            listOf(request.desktop, request.android, request.web, request.ios, request.tls, request.assets).any { it != null } ||
+                request.customCheckClassNames.isNotEmpty()
         require(hasAnyTarget) {
-            "Pass at least one target (--desktop-jars, --android-apk, --android-aab, --web-dir, --ios-artifact, or --tls-pins)."
+            "Pass at least one target (--desktop-jars, --android-apk, --android-aab, --web-dir, --ios-artifact, --asset-dir, --shader-dir, --tls-pins, or --custom-check-class)."
         }
         return request
+    }
+
+    private fun runStripSpirv(args: List<String>, out: PrintStream): Int {
+        var input: File? = null
+        var output: File? = null
+        var i = 0
+        while (i < args.size) {
+            when (args[i]) {
+                "--input" -> { input = File(requireArgValue(args, i)); i += 2 }
+                "--output" -> { output = File(requireArgValue(args, i)); i += 2 }
+                else -> throw IllegalArgumentException("Unknown strip-spirv option '${args[i]}'.")
+            }
+        }
+        val inDir = requireNotNull(input) { "strip-spirv requires --input <dir>." }
+        val outDir = requireNotNull(output) { "strip-spirv requires --output <dir>." }
+        require(inDir.isDirectory) { "Input directory does not exist: ${inDir.path}" }
+        var count = 0
+        var savedBytes = 0L
+        inDir.walkTopDown().filter { it.isFile && it.extension.equals("spv", ignoreCase = true) }.forEach { file ->
+            val raw = file.readBytes()
+            val stripped = SpirvShaderInspector.stripDebugOpcodes(raw)
+            val target = outDir.resolve(file.relativeTo(inDir))
+            target.parentFile?.mkdirs()
+            target.writeBytes(stripped)
+            count++
+            savedBytes += (raw.size - stripped.size).coerceAtLeast(0)
+        }
+        out.println("Stripped $count SPIR-V shader(s) into ${outDir.path} (saved $savedBytes bytes).")
+        return 0
     }
 
     private fun runStripWeb(args: List<String>, out: PrintStream): Int {
@@ -224,7 +258,7 @@ public object ReleaseGuardCli {
         return 0
     }
 
-    private data class ParsedAuditArgs(
+    internal data class ParsedAuditArgs(
         val policyFile: File? = null,
         val preset: String = "balanced",
         val projectPackages: List<String> = emptyList(),
@@ -255,6 +289,12 @@ public object ReleaseGuardCli {
         val markdownOut: File? = null,
         val sarifOut: File? = null,
         val htmlOut: File? = null,
+        val forbiddenClasses: List<String> = emptyList(),
+        val ownJarNames: Set<String> = emptySet(),
+        val assetDirs: List<File> = emptyList(),
+        val shaderDirs: List<File> = emptyList(),
+        val customCheckClasses: List<String> = emptyList(),
+        val customParams: Map<String, String> = emptyMap(),
     )
 
     @Suppress("CyclomaticComplexMethod", "LongMethod")
@@ -263,6 +303,12 @@ public object ReleaseGuardCli {
         val packages = mutableListOf<String>()
         val keywords = mutableListOf<String>()
         val probeHosts = mutableListOf<String>()
+        val forbiddenClasses = mutableListOf<String>()
+        val ownJarNames = linkedSetOf<String>()
+        val assetDirs = mutableListOf<File>()
+        val shaderDirs = mutableListOf<File>()
+        val customCheckClasses = mutableListOf<String>()
+        val customParams = linkedMapOf<String, String>()
         var i = 0
         while (i < args.size) {
             when (val flag = args[i]) {
@@ -289,6 +335,18 @@ public object ReleaseGuardCli {
                 "--desktop-native-libs" -> { state = state.copy(desktopNativeLibs = File(requireArgValue(args, i))); i += 2 }
                 "--desktop-jpackage-dir" -> { state = state.copy(desktopJpackageDir = File(requireArgValue(args, i))); i += 2 }
                 "--desktop-assets" -> { state = state.copy(desktopAssets = File(requireArgValue(args, i))); i += 2 }
+                "--own-jar" -> { ownJarNames += requireArgValue(args, i); i += 2 }
+                "--forbid-class" -> { forbiddenClasses += requireArgValue(args, i); i += 2 }
+                "--asset-dir" -> { assetDirs += File(requireArgValue(args, i)); i += 2 }
+                "--shader-dir" -> { shaderDirs += File(requireArgValue(args, i)); i += 2 }
+                "--custom-check-class" -> { customCheckClasses += requireArgValue(args, i); i += 2 }
+                "--custom-param" -> {
+                    val entry = requireArgValue(args, i)
+                    val eq = entry.indexOf('=')
+                    require(eq > 0) { "--custom-param expects key=value, got '$entry'." }
+                    customParams[entry.substring(0, eq)] = entry.substring(eq + 1)
+                    i += 2
+                }
                 "--android-apk", "--android-aab", "--android-artifact" -> {
                     state = state.copy(androidArtifact = File(requireArgValue(args, i)))
                     i += 2
@@ -315,6 +373,12 @@ public object ReleaseGuardCli {
             projectPackages = packages,
             projectKeywords = keywords,
             tlsProbeHosts = probeHosts,
+            forbiddenClasses = forbiddenClasses,
+            ownJarNames = ownJarNames,
+            assetDirs = assetDirs,
+            shaderDirs = shaderDirs,
+            customCheckClasses = customCheckClasses,
+            customParams = customParams,
         )
     }
 
@@ -340,6 +404,12 @@ Usage:
     --desktop-native-libs <dir>      Directory of desktop native .dll/.so/.dylib libraries
     --desktop-jpackage-dir <dir>     jpackage app directory containing *.cfg launcher configs
     --desktop-assets <dir>           Directory of packaged content bundles (.awkb)
+    --own-jar <jar-name>             Repeatable own-game JAR filename to scope desktop readability checks
+    --forbid-class <fqcn>            Repeatable forbidden class FQCN checked in bytecode & mapping.txt
+    --asset-dir <dir>                Repeatable directory audited for raw 3D models & encrypted containers
+    --shader-dir <dir>               Repeatable directory audited for SPIR-V debug info & raw shaders
+    --custom-check-class <fqcn>      Repeatable ReleaseGuardCheck / ReleaseGuardCheckProvider class
+    --custom-param <key=value>       Repeatable custom key=value parameter passed to callbacks
     --android-apk <file>             Android release APK path
     --android-aab <file>             Android App Bundle (.aab) path
     --android-mapping <file>         External R8 mapping.txt path
@@ -360,9 +430,43 @@ Usage:
     --html-out <file>                Write interactive HTML dashboard with plain-English explanations
 
   strip-web --input <dir> --output <dir> [--no-headers] [--no-strip-wasm] [--csp <policy>]
+  strip-spirv --input <dir> --output <dir>
   print-tls-pins <host> [<host>...]
   init-policy [--preset <strict|balanced|dev>] [--project-package <pkg>] [--output <file>]
 """
+}
+
+private fun applyCliPolicyOverrides(
+    base: ReleaseGuardPolicy,
+    parsed: ReleaseGuardCli.ParsedAuditArgs,
+): ReleaseGuardPolicy {
+    var policy = applyCoreOverrides(base, parsed)
+    if (parsed.webMode != null) policy = policy.copy(web = policy.web.copy(mode = parsed.webMode))
+    if (parsed.probeLiveTls) policy = policy.copy(tls = policy.tls.copy(probeLiveHosts = true))
+    if (parsed.requireEncryptedAssets) policy = policy.copy(assetEncryption = policy.assetEncryption.copy(enabled = true))
+    if (parsed.forbiddenClasses.isNotEmpty()) {
+        policy = policy.copy(
+            desktop = policy.desktop.copy(forbiddenClasses = parsed.forbiddenClasses),
+            android = policy.android.copy(forbiddenClasses = parsed.forbiddenClasses),
+        )
+    }
+    if (parsed.ownJarNames.isNotEmpty()) policy = policy.copy(desktop = policy.desktop.copy(ownJarNames = parsed.ownJarNames))
+    if (parsed.assetDirs.isNotEmpty()) policy = policy.copy(assetSecurity = policy.assetSecurity.copy(enabled = true))
+    if (parsed.shaderDirs.isNotEmpty()) policy = policy.copy(shaderSecurity = policy.shaderSecurity.copy(enabled = true))
+    return policy
+}
+
+private fun applyCoreOverrides(
+    base: ReleaseGuardPolicy,
+    parsed: ReleaseGuardCli.ParsedAuditArgs,
+): ReleaseGuardPolicy {
+    var policy = base
+    if (parsed.projectPackages.isNotEmpty()) policy = policy.copy(projectPackages = parsed.projectPackages)
+    if (parsed.projectKeywords.isNotEmpty()) policy = policy.copy(projectKeywords = parsed.projectKeywords)
+    if (parsed.minScore != null) policy = policy.copy(minScore = parsed.minScore)
+    if (parsed.failOnSeveritySet) policy = policy.copy(failOnSeverity = parsed.failOnSeverity)
+    if (parsed.failOnRegression) policy = policy.copy(baseline = policy.baseline.copy(failOnRegression = true))
+    return policy
 }
 
 /** CLI process entrypoint. */

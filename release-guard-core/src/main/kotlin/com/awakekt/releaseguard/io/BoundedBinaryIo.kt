@@ -88,6 +88,26 @@ public object BoundedBinaryIo {
         }
     }
 
+    /** Reads up to the first [maxBytes] bytes of [file] without loading the rest of the file into memory. */
+    public fun readFilePrefix(file: File, maxBytes: Int): ByteArray {
+        val target = if (maxBytes > 0 && file.isFile) {
+            minOf(maxBytes.toLong(), file.length()).toInt().coerceAtLeast(0)
+        } else {
+            0
+        }
+        if (target == 0) return ByteArray(0)
+        val buf = ByteArray(target)
+        var offset = 0
+        file.inputStream().use { input ->
+            while (offset < target) {
+                val read = input.read(buf, offset, target - offset)
+                if (read <= 0) break
+                offset += read
+            }
+        }
+        return if (offset == buf.size) buf else buf.copyOf(offset)
+    }
+
     /** Reads UTF-8 text from [file] if its byte length does not exceed [maxBytes]. */
     public fun readTextBounded(
         file: File,

@@ -8,8 +8,10 @@ package com.awakekt.releaseguard.gradle
 import com.awakekt.releaseguard.ReleaseGuardAuditor
 import com.awakekt.releaseguard.ReleaseGuardRequest
 import com.awakekt.releaseguard.analyzers.AndroidAuditInput
+import com.awakekt.releaseguard.analyzers.AssetAuditInput
 import com.awakekt.releaseguard.analyzers.DesktopAuditInput
 import com.awakekt.releaseguard.analyzers.IosAuditInput
+import com.awakekt.releaseguard.analyzers.SpirvShaderInspector
 import com.awakekt.releaseguard.analyzers.SupplyChainAuditInput
 import com.awakekt.releaseguard.analyzers.TlsAuditInput
 import com.awakekt.releaseguard.analyzers.WebAuditInput
@@ -27,6 +29,7 @@ import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -225,6 +228,37 @@ public abstract class HardenWebBundleTask : DefaultTask() {
     }
 }
 
+/** Losslessly strips SPIR-V debug opcodes (`OpSource`, `OpName`, `OpLine`, `OpString`) in pure Kotlin. */
+@CacheableTask
+public abstract class StripSpirvShadersTask : DefaultTask() {
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    public abstract val inputDir: DirectoryProperty
+
+    @get:OutputDirectory
+    public abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    public fun strip() {
+        val src = inputDir.get().asFile
+        val dst = outputDir.get().asFile
+        if (dst.exists()) dst.deleteRecursively()
+        dst.mkdirs()
+        var count = 0
+        var savedBytes = 0L
+        src.walkTopDown().filter { it.isFile && it.extension.equals("spv", ignoreCase = true) }.forEach { file ->
+            val raw = file.readBytes()
+            val stripped = SpirvShaderInspector.stripDebugOpcodes(raw)
+            val target = dst.resolve(file.relativeTo(src))
+            target.parentFile?.mkdirs()
+            target.writeBytes(stripped)
+            count++
+            savedBytes += (raw.size - stripped.size).coerceAtLeast(0)
+        }
+        logger.lifecycle("Stripped $count SPIR-V shader(s) into ${dst.path} (saved $savedBytes bytes).")
+    }
+}
+
 /**
  * Audits all enabled targets via [ReleaseGuardAuditor], writes JSON, Markdown, and SARIF 2.1.0
  * reports, compares against an optional baseline scorecard, and enforces configured release gates.
@@ -311,6 +345,30 @@ public abstract class VerifyReleaseGuardTask : DefaultTask() {
     public abstract val resolvedDependencies: ListProperty<String>
 
     @get:Input
+    public abstract val assetsEnabled: Property<Boolean>
+
+    @get:Input
+    public abstract val shadersEnabled: Property<Boolean>
+
+    @get:Input
+    public abstract val assetDirectoryPaths: ListProperty<String>
+
+    @get:Input
+    public abstract val shaderDirectoryPaths: ListProperty<String>
+
+    @get:Input
+    public abstract val assetArchivePaths: ListProperty<String>
+
+    @get:Input
+    public abstract val customCheckClasses: ListProperty<String>
+
+    @get:Input
+    public abstract val loadServiceProviderChecks: Property<Boolean>
+
+    @get:Input
+    public abstract val customParameters: MapProperty<String, String>
+
+    @get:Input
     @get:Optional
     public abstract val baselinePath: Property<String>
 
@@ -364,49 +422,75 @@ public abstract class VerifyReleaseGuardTask : DefaultTask() {
         }
         val request = ReleaseGuardRequest(
             policy = policy,
-            desktop = if (desktopEnabled.get()) {
-                val jars = requirePath(desktopGameJarsPath, "releaseGuard.desktop.enabled is true but gameJarsDir is not set.")
-                DesktopAuditInput(
-                    gameJarsDirectory = File(jars),
-                    librariesDirectory = desktopLibrariesPath.orNull?.let(::File),
-                    mappingFile = desktopMappingPath.orNull?.let(::File),
-                    nativeLibsDirectory = desktopNativeLibsPath.orNull?.let(::File),
-                    jpackageAppDirectory = desktopJpackagePath.orNull?.let(::File),
-                    assetDirectory = desktopAssetsPath.orNull?.let(::File),
-                )
-            } else {
-                null
-            },
-            android = if (androidEnabled.get()) {
-                AndroidAuditInput(
-                    File(requirePath(androidArtifactPath, "releaseGuard.android.enabled is true but artifactFile is not set.")),
-                    androidMappingPath.orNull?.let(::File),
-                )
-            } else {
-                null
-            },
+            desktop = buildDesktopInput(),
+            android = buildAndroidInput(),
             web = if (webEnabled.get()) {
                 WebAuditInput(File(requirePath(webSitePath, "releaseGuard.web.enabled is true but strippedOutputDir is not set.")))
             } else {
                 null
             },
-            ios = if (iosEnabled.get()) {
-                IosAuditInput(
-                    File(requirePath(iosArtifactPath, "releaseGuard.ios.enabled is true but artifactPath is not set.")),
-                    iosInfoPlistPath.orNull?.let(::File),
-                )
-            } else {
-                null
-            },
+            ios = buildIosInput(),
             tls = if (tlsEnabled.get()) TlsAuditInput(tlsSpkiPins.orNull.orEmpty(), tlsProbeHosts.get()) else null,
             supplyChain = if (supplyChainEnabled.get()) SupplyChainAuditInput(resolvedDependencies.get()) else null,
+            assets = buildAssetsInput(policy),
             baseline = baseline,
+            customCheckClassNames = customCheckClasses.get(),
+            loadServiceProviderChecks = loadServiceProviderChecks.get(),
+            customParameters = customParameters.get(),
         )
-        val hasTarget = listOf(request.desktop, request.android, request.web, request.ios, request.tls, request.supplyChain).any { it != null }
+        val hasTarget =
+            listOf(request.desktop, request.android, request.web, request.ios, request.tls, request.supplyChain, request.assets)
+                .any { it != null } || request.customCheckClassNames.isNotEmpty()
         if (!hasTarget) {
-            throw GradleException("Enable at least one target in releaseGuard { desktop / android / web / ios / tls / supplyChain }.")
+            throw GradleException(
+                "Enable at least one target in releaseGuard { desktop / android / web / ios / assets / shaders / tls / supplyChain / customChecks }.",
+            )
         }
         return request
+    }
+
+    private fun buildDesktopInput(): DesktopAuditInput? = if (desktopEnabled.get()) {
+        val jars = requirePath(desktopGameJarsPath, "releaseGuard.desktop.enabled is true but gameJarsDir is not set.")
+        DesktopAuditInput(
+            gameJarsDirectory = File(jars),
+            librariesDirectory = desktopLibrariesPath.orNull?.let(::File),
+            mappingFile = desktopMappingPath.orNull?.let(::File),
+            nativeLibsDirectory = desktopNativeLibsPath.orNull?.let(::File),
+            jpackageAppDirectory = desktopJpackagePath.orNull?.let(::File),
+            assetDirectory = desktopAssetsPath.orNull?.let(::File),
+        )
+    } else {
+        null
+    }
+
+    private fun buildAndroidInput(): AndroidAuditInput? = if (androidEnabled.get()) {
+        AndroidAuditInput(
+            File(requirePath(androidArtifactPath, "releaseGuard.android.enabled is true but artifactFile is not set.")),
+            androidMappingPath.orNull?.let(::File),
+        )
+    } else {
+        null
+    }
+
+    private fun buildIosInput(): IosAuditInput? = if (iosEnabled.get()) {
+        IosAuditInput(
+            File(requirePath(iosArtifactPath, "releaseGuard.ios.enabled is true but artifactPath is not set.")),
+            iosInfoPlistPath.orNull?.let(::File),
+        )
+    } else {
+        null
+    }
+
+    private fun buildAssetsInput(policy: ReleaseGuardPolicy): AssetAuditInput? {
+        if (!assetsEnabled.get() && !shadersEnabled.get() && !policy.assetEncryption.enabled) return null
+        val assetDirs = assetDirectoryPaths.get().map(::File)
+        val shaderDirs = shaderDirectoryPaths.get().map(::File)
+        val archives = assetArchivePaths.get().map(::File)
+        return if (assetDirs.isNotEmpty() || shaderDirs.isNotEmpty() || archives.isNotEmpty()) {
+            AssetAuditInput(assetDirectories = assetDirs, shaderDirectories = shaderDirs, archiveFiles = archives)
+        } else {
+            null
+        }
     }
 
     private fun requirePath(prop: Property<String>, message: String): String =

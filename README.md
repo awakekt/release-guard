@@ -33,7 +33,9 @@ shipping, but **never replaces server-authoritative logic, entitlement validatio
 | **Web (WASM/JS)** | `.map` & JS/CSS `sourceMappingURL` exclusion, lossless WASM `name`/`producers`/`.debug*` custom section stripping & export audit, bundle readability, leaked `.kt` repo paths (with allowlisted CI library paths), FQN class count, `_headers` presence + CSP directive quality grading, Subresource Integrity (SRI) on external scripts/stylesheets, cleartext `http://`/`ws://` & `debugger;` residue, sensitive dist files (`.env`, `.git`), secrets. |
 | **iOS (Framework / XCFramework / IPA)** | Multi-slice `.xcframework` and `.ipa` inspection, `__DWARF` absence, unstripped STAB/local symbols, `MH_PIE` (ASLR) & `LC_CODE_SIGNATURE`, leaked workstation build paths, XML & binary `bplist00` `Info.plist` ATS (`NSAllowsArbitraryLoads` & insecure `NSExceptionDomains`), `embedded.mobileprovision` (`get-task-allow=true`, ad-hoc profiles), `PrivacyInfo.xcprivacy`, secrets. |
 | **Transport TLS** | SPKI SHA-256 pin syntax, wildcard matching (`*.`, `**.`), rotation backup pin count, optional live TLS handshake verification, and live pin printing. |
-| **Supply Chain & Baselines** | Gradle `-SNAPSHOT` dependency gating, baseline regression diffing (`--baseline` / `--fail-on-regression`), and SARIF 2.1.0 output for GitHub Code Scanning. |
+| **Assets & Shaders** | Unencrypted 3D model leaks (`.glb`, `.gltf`, `.fbx`, `.obj`, plus extensionless `glTF`/FBX binary magic sniffing), encrypted container headers (`.awkb` v2, custom `ContainerHeaderRule`, and Shannon payload entropy), Khronos SPIR-V (`.spv`) debug opcode auditing & lossless stripping (`OpSource`, `OpName`, `OpMemberName`, `OpLine`, `OpString`), and raw shader source / WGSL comment exposure. |
+| **Custom Callbacks & SPI** | Pluggable `ReleaseGuardCheck` callbacks and `ServiceLoader` `ReleaseGuardCheckProvider` SPI so game-specific authoring checks (content indexes, per-world encryption keys, sign-in budgets) plug directly into the same `0–100` score, plain-English HTML dashboard, SARIF output, and CI gate. |
+| **Supply Chain & Baselines** | Gradle `-SNAPSHOT` dependency gating, forbidden class shrinking checks (bytecode + `mapping.txt`), baseline regression diffing (`--baseline` / `--fail-on-regression`), and SARIF 2.1.0 output for GitHub Code Scanning. |
 
 ## Installation (Zero-Token Public Maven)
 
@@ -91,6 +93,22 @@ releaseGuard {
         gameJarsDir.set(layout.buildDirectory.dir("obfuscated/jars"))
         librariesDir.set(layout.buildDirectory.dir("install/desktopApp/lib"))
         nativeLibsDir.set(layout.buildDirectory.dir("install/desktopApp/natives"))
+        forbiddenClasses.add("com.example.game.DebugCheatOverlay")
+    }
+
+    assets {
+        enabled.set(true)
+        directories.from(layout.buildDirectory.dir("release-assets"))
+    }
+
+    shaders {
+        enabled.set(true)
+        directories.from(layout.buildDirectory.dir("compiled-shaders"))
+    }
+
+    customChecks {
+        checkClasses.add("com.example.buildlogic.MyAuthoringCheck")
+        parameters.put("maxSignInMb", "5")
     }
 
     web {

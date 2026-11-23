@@ -30,6 +30,8 @@ public data class DesktopAuditPolicy(
     public val requirePeAslrAndDep: Boolean = true,
     public val forbidLeakedPdbPaths: Boolean = true,
     public val forbidJpackageDebugFlags: Boolean = true,
+    public val forbiddenClasses: List<String> = emptyList(),
+    public val ownJarNames: Set<String> = emptySet(),
 )
 
 /** Configuration for auditing Android release APK and Android App Bundle (AAB) packages. */
@@ -55,6 +57,7 @@ public data class AndroidAuditPolicy(
     public val forbiddenArtifactPatterns: List<String> = DEFAULT_FORBIDDEN_ARTIFACTS,
     public val forbidSensitiveBundledFiles: Boolean = true,
     public val requireMappingFile: Boolean = false,
+    public val forbiddenClasses: List<String> = emptyList(),
 ) {
     public companion object {
         /** Default debug and validation artifacts that must not ship inside release APKs or AABs. */
@@ -122,13 +125,58 @@ public data class SecretScanPolicy(
     public val allowlistRegexes: List<String> = emptyList(),
 )
 
+/** Generic declarative header rule for verifying custom encrypted asset containers. */
+@Serializable
+public data class ContainerHeaderRule(
+    public val extension: String,
+    public val expectedMagicAscii: String,
+    public val minHeaderBytes: Int = 8,
+    public val versionOffset: Int? = null,
+    public val minVersion: Int = 1,
+    public val flagsOffset: Int? = null,
+    public val requiredFlagsMask: Int = 0,
+    public val littleEndian: Boolean = true,
+)
+
 /** Configuration for verifying that packaged content bundles carry encryption headers. */
 @Serializable
 public data class AssetEncryptionPolicy(
     public val enabled: Boolean = false,
     public val bundleExtensions: Set<String> = setOf("awkb"),
     public val requireAwkbV2EncryptedFlag: Boolean = true,
+    public val customContainerRules: List<ContainerHeaderRule> = emptyList(),
+    public val minContainerEntropy: Double? = null,
 )
+
+/** Configuration for auditing raw 3D model leaks and packaged asset hygiene across builds. */
+@Serializable
+public data class AssetSecurityPolicy(
+    public val enabled: Boolean = false,
+    public val forbidRawModelExtensions: Set<String> = DEFAULT_RAW_MODEL_EXTENSIONS,
+    public val sniffModelMagicBytes: Boolean = true,
+    public val allowedPlaintextPathRegexes: List<String> = emptyList(),
+) {
+    public companion object {
+        /** Standard unencrypted 3D model/scene extensions flagged when encrypted packaging is required. */
+        public val DEFAULT_RAW_MODEL_EXTENSIONS: Set<String> = setOf("glb", "gltf", "fbx", "obj", "dae", "blend")
+    }
+}
+
+/** Configuration for auditing SPIR-V bytecode and WGSL/GLSL shader source exposure. */
+@Serializable
+public data class ShaderSecurityPolicy(
+    public val enabled: Boolean = false,
+    public val forbidSpirvDebugInfo: Boolean = true,
+    public val forbidRawShaderExtensions: Set<String> = DEFAULT_RAW_SHADER_EXTENSIONS,
+    public val forbidWgslComments: Boolean = false,
+    public val allowedShaderPathRegexes: List<String> = emptyList(),
+) {
+    public companion object {
+        /** Uncompiled shader source extensions that normally should not ship raw in release artifacts. */
+        public val DEFAULT_RAW_SHADER_EXTENSIONS: Set<String> =
+            setOf("glsl", "vert", "frag", "comp", "geom", "tesc", "tese", "hlsl", "metal", "asl")
+    }
+}
 
 /** Configuration for baseline regression gating against a previous scorecard. */
 @Serializable
@@ -166,6 +214,8 @@ public data class ReleaseGuardPolicy(
     public val tls: TlsAuditPolicy = TlsAuditPolicy(),
     public val secrets: SecretScanPolicy = SecretScanPolicy(),
     public val assetEncryption: AssetEncryptionPolicy = AssetEncryptionPolicy(),
+    public val assetSecurity: AssetSecurityPolicy = AssetSecurityPolicy(),
+    public val shaderSecurity: ShaderSecurityPolicy = ShaderSecurityPolicy(),
     public val baseline: BaselinePolicy = BaselinePolicy(),
     public val supplyChain: SupplyChainPolicy = SupplyChainPolicy(),
 ) {

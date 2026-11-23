@@ -8,12 +8,14 @@ package com.awakekt.releaseguard.gradle
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.awakekt.releaseguard.model.AndroidAuditPolicy
 import com.awakekt.releaseguard.model.AssetEncryptionPolicy
+import com.awakekt.releaseguard.model.AssetSecurityPolicy
 import com.awakekt.releaseguard.model.BaselinePolicy
 import com.awakekt.releaseguard.model.CheckSeverity
 import com.awakekt.releaseguard.model.DesktopAuditPolicy
 import com.awakekt.releaseguard.model.IosAuditPolicy
 import com.awakekt.releaseguard.model.ReleaseGuardPolicy
 import com.awakekt.releaseguard.model.SecretScanPolicy
+import com.awakekt.releaseguard.model.ShaderSecurityPolicy
 import com.awakekt.releaseguard.model.SupplyChainPolicy
 import com.awakekt.releaseguard.model.TlsAuditPolicy
 import com.awakekt.releaseguard.model.WebAuditMode
@@ -41,6 +43,12 @@ public class ReleaseGuardPlugin : Plugin<Project> {
         val generateRules = registerGenerateRulesTask(project, ext)
         registerCollectKeepRulesTask(project, ext)
         registerHardenWebTask(project, ext)
+        project.tasks.register("stripSpirvShaders", StripSpirvShadersTask::class.java) { task ->
+            task.group = "release guard"
+            task.description = "Strip OpSource/OpName/OpLine debug instructions from compiled SPIR-V (.spv) shaders."
+            task.inputDir.set(ext.shaders.stripInputDir)
+            task.outputDir.set(ext.shaders.stripOutputDir)
+        }
         registerVerifyTask(project, ext)
 
         // Isolate optional KMP and AGP plugin references into dedicated helper objects so pure-JVM
@@ -101,6 +109,8 @@ public class ReleaseGuardPlugin : Plugin<Project> {
         desktop.requirePeAslrAndDep.convention(true)
         desktop.forbidLeakedPdbPaths.convention(true)
         desktop.forbidJpackageDebugFlags.convention(true)
+        desktop.forbiddenClasses.convention(emptyList())
+        desktop.ownJarNames.convention(emptySet())
     }
 
     private fun applyWebConventions(project: Project, web: WebGuardSpec) {
@@ -146,6 +156,7 @@ public class ReleaseGuardPlugin : Plugin<Project> {
         android.forbiddenArtifactPatterns.convention(AndroidAuditPolicy.DEFAULT_FORBIDDEN_ARTIFACTS)
         android.forbidSensitiveBundledFiles.convention(true)
         android.requireMappingFile.convention(false)
+        android.forbiddenClasses.convention(emptyList())
     }
 
     private fun applyIosTlsAndMiscConventions(project: Project, ext: ReleaseGuardExtension) {
@@ -175,6 +186,22 @@ public class ReleaseGuardPlugin : Plugin<Project> {
 
         ext.assetEncryption.enabled.convention(false)
         ext.assetEncryption.bundleExtensions.convention(setOf("awkb"))
+
+        ext.assets.enabled.convention(false)
+        ext.assets.forbidRawModelExtensions.convention(AssetSecurityPolicy.DEFAULT_RAW_MODEL_EXTENSIONS)
+        ext.assets.sniffModelMagicBytes.convention(true)
+        ext.assets.allowedPlaintextPathRegexes.convention(emptyList())
+
+        ext.shaders.enabled.convention(false)
+        ext.shaders.stripOutputDir.convention(project.layout.buildDirectory.dir("release-guard/shaders-stripped"))
+        ext.shaders.forbidSpirvDebugInfo.convention(true)
+        ext.shaders.forbidRawShaderExtensions.convention(ShaderSecurityPolicy.DEFAULT_RAW_SHADER_EXTENSIONS)
+        ext.shaders.forbidWgslComments.convention(false)
+        ext.shaders.allowedShaderPathRegexes.convention(emptyList())
+
+        ext.customChecks.checkClasses.convention(emptyList())
+        ext.customChecks.loadServiceProviders.convention(true)
+        ext.customChecks.parameters.convention(emptyMap())
 
         ext.supplyChain.enabled.convention(false)
         ext.supplyChain.forbidSnapshotDependencies.convention(true)
@@ -277,6 +304,15 @@ public class ReleaseGuardPlugin : Plugin<Project> {
             task.supplyChainEnabled.set(ext.supplyChain.enabled)
             task.resolvedDependencies.convention(emptyList())
 
+            task.assetsEnabled.set(ext.assets.enabled)
+            task.shadersEnabled.set(ext.shaders.enabled)
+            task.assetDirectoryPaths.set(project.providers.provider { ext.assets.directories.files.map { it.absolutePath } })
+            task.shaderDirectoryPaths.set(project.providers.provider { ext.shaders.directories.files.map { it.absolutePath } })
+            task.assetArchivePaths.set(project.providers.provider { ext.assets.archiveFiles.files.map { it.absolutePath } })
+            task.customCheckClasses.set(ext.customChecks.checkClasses)
+            task.loadServiceProviderChecks.set(ext.customChecks.loadServiceProviders)
+            task.customParameters.set(ext.customChecks.parameters)
+
             task.baselinePath.set(ext.reports.baselineFile.map { it.asFile.absolutePath })
             task.consoleFormat.set(ext.reports.consoleFormat)
             task.jsonReportFile.set(ext.reports.jsonReport)
@@ -346,6 +382,20 @@ private fun buildPolicyJsonProvider(project: Project, ext: ReleaseGuardExtension
             assetEncryption = AssetEncryptionPolicy(
                 enabled = ext.assetEncryption.enabled.get(),
                 bundleExtensions = ext.assetEncryption.bundleExtensions.get(),
+                minContainerEntropy = ext.assetEncryption.minContainerEntropy.orNull,
+            ),
+            assetSecurity = AssetSecurityPolicy(
+                enabled = ext.assets.enabled.get(),
+                forbidRawModelExtensions = ext.assets.forbidRawModelExtensions.get(),
+                sniffModelMagicBytes = ext.assets.sniffModelMagicBytes.get(),
+                allowedPlaintextPathRegexes = ext.assets.allowedPlaintextPathRegexes.get(),
+            ),
+            shaderSecurity = ShaderSecurityPolicy(
+                enabled = ext.shaders.enabled.get(),
+                forbidSpirvDebugInfo = ext.shaders.forbidSpirvDebugInfo.get(),
+                forbidRawShaderExtensions = ext.shaders.forbidRawShaderExtensions.get(),
+                forbidWgslComments = ext.shaders.forbidWgslComments.get(),
+                allowedShaderPathRegexes = ext.shaders.allowedShaderPathRegexes.get(),
             ),
             baseline = BaselinePolicy(
                 failOnRegression = ext.reports.failOnRegression.get(),
@@ -369,6 +419,8 @@ private fun buildDesktopPolicy(desktop: DesktopGuardSpec): DesktopAuditPolicy = 
     requirePeAslrAndDep = desktop.requirePeAslrAndDep.get(),
     forbidLeakedPdbPaths = desktop.forbidLeakedPdbPaths.get(),
     forbidJpackageDebugFlags = desktop.forbidJpackageDebugFlags.get(),
+    forbiddenClasses = desktop.forbiddenClasses.get(),
+    ownJarNames = desktop.ownJarNames.get(),
 )
 
 private fun buildAndroidPolicy(android: AndroidGuardSpec): AndroidAuditPolicy = AndroidAuditPolicy(
@@ -392,6 +444,7 @@ private fun buildAndroidPolicy(android: AndroidGuardSpec): AndroidAuditPolicy = 
     forbiddenArtifactPatterns = android.forbiddenArtifactPatterns.get(),
     forbidSensitiveBundledFiles = android.forbidSensitiveBundledFiles.get(),
     requireMappingFile = android.requireMappingFile.get(),
+    forbiddenClasses = android.forbiddenClasses.get(),
 )
 
 private fun buildWebPolicy(web: WebGuardSpec): WebAuditPolicy = WebAuditPolicy(
