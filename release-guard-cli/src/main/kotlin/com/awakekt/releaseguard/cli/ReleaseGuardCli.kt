@@ -19,6 +19,7 @@ import com.awakekt.releaseguard.model.CheckSeverity
 import com.awakekt.releaseguard.model.ReleaseGuardPolicies
 import com.awakekt.releaseguard.model.ReleaseGuardPolicy
 import com.awakekt.releaseguard.model.WebAuditMode
+import com.awakekt.releaseguard.report.HtmlReportRenderer
 import com.awakekt.releaseguard.report.ReleaseGuardReportRenderer
 import com.awakekt.releaseguard.report.SarifReportRenderer
 import kotlinx.serialization.json.Json
@@ -83,10 +84,15 @@ public object ReleaseGuardCli {
             file.parentFile?.mkdirs()
             file.writeText(SarifReportRenderer.renderSarif(scorecard), Charsets.UTF_8)
         }
+        parsed.htmlOut?.let { file ->
+            file.parentFile?.mkdirs()
+            file.writeText(HtmlReportRenderer.renderHtml(scorecard), Charsets.UTF_8)
+        }
         val rendered = when (parsed.format) {
             "json" -> ReleaseGuardReportRenderer.renderJson(scorecard)
             "markdown", "md" -> ReleaseGuardReportRenderer.renderMarkdown(scorecard)
             "sarif" -> SarifReportRenderer.renderSarif(scorecard)
+            "html" -> HtmlReportRenderer.renderHtml(scorecard)
             else -> ReleaseGuardReportRenderer.renderConsole(scorecard)
         }
         out.print(rendered)
@@ -248,6 +254,7 @@ public object ReleaseGuardCli {
         val jsonOut: File? = null,
         val markdownOut: File? = null,
         val sarifOut: File? = null,
+        val htmlOut: File? = null,
     )
 
     @Suppress("CyclomaticComplexMethod", "LongMethod")
@@ -300,6 +307,7 @@ public object ReleaseGuardCli {
                 "--json-out" -> { state = state.copy(jsonOut = File(requireArgValue(args, i))); i += 2 }
                 "--markdown-out" -> { state = state.copy(markdownOut = File(requireArgValue(args, i))); i += 2 }
                 "--sarif-out" -> { state = state.copy(sarifOut = File(requireArgValue(args, i))); i += 2 }
+                "--html-out" -> { state = state.copy(htmlOut = File(requireArgValue(args, i))); i += 2 }
                 else -> throw IllegalArgumentException("Unknown audit option '$flag'.")
             }
         }
@@ -345,10 +353,11 @@ Usage:
     --baseline <scorecard.json>      Compare against a previous JSON scorecard for regressions
     --fail-on-regression             Fail gate if score drops or new failures appear vs baseline
     --require-encrypted-assets       Enforce encrypted content bundle headers (.awkb v2 flag)
-    --format <console|json|markdown|sarif>
+    --format <console|json|markdown|sarif|html>
     --json-out <file>                Write machine-readable JSON scorecard
     --markdown-out <file>            Write Markdown scorecard summary
     --sarif-out <file>               Write SARIF 2.1.0 JSON for GitHub Code Scanning
+    --html-out <file>                Write interactive HTML dashboard with plain-English explanations
 
   strip-web --input <dir> --output <dir> [--no-headers] [--no-strip-wasm] [--csp <policy>]
   print-tls-pins <host> [<host>...]

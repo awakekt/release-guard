@@ -99,6 +99,10 @@ public object ReleaseGuardReportRenderer {
 
     private fun appendConsoleFinding(out: StringBuilder, finding: AuditFinding) {
         out.appendLine("[${finding.status}] (${finding.severity}, w=${finding.weight}) ${finding.checkId}: ${finding.summary}")
+        if (finding.status == CheckStatus.FAIL || finding.status == CheckStatus.WARN) {
+            val exp = FindingExplainer.explain(finding)
+            out.appendLine("       impact [${exp.attackerLevel}]: ${exp.plainEnglishImpact}")
+        }
         if (finding.evidence.isNotEmpty() && finding.status != CheckStatus.PASS) {
             out.appendLine("       evidence: ${finding.evidence.take(8).joinToString(", ")}")
         }
@@ -133,7 +137,9 @@ public object ReleaseGuardReportRenderer {
             out.appendLine("### Actionable Remediation")
             out.appendLine()
             for (finding in actionable) {
+                val exp = FindingExplainer.explain(finding)
                 out.appendLine("- **`${finding.checkId}`** (${finding.status}, ${finding.severity}): ${finding.summary}")
+                out.appendLine("  - What an attacker sees (*${exp.attackerLevel}*): ${exp.plainEnglishImpact}")
                 if (finding.evidence.isNotEmpty()) {
                     out.appendLine("  - Evidence: ${finding.evidence.take(5).joinToString(", ") { "`$it`" }}")
                 }

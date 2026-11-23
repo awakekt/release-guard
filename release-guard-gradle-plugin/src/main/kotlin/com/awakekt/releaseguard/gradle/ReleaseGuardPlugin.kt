@@ -182,6 +182,7 @@ public class ReleaseGuardPlugin : Plugin<Project> {
         ext.reports.jsonReport.convention(project.layout.buildDirectory.file("reports/release-guard/scorecard.json"))
         ext.reports.markdownReport.convention(project.layout.buildDirectory.file("reports/release-guard/scorecard.md"))
         ext.reports.sarifReport.convention(project.layout.buildDirectory.file("reports/release-guard/scorecard.sarif"))
+        ext.reports.htmlReport.convention(project.layout.buildDirectory.file("reports/release-guard/scorecard.html"))
         ext.reports.failOnRegression.convention(false)
         ext.reports.maxAllowedScoreDrop.convention(0)
         ext.reports.consoleFormat.convention("console")
@@ -281,6 +282,7 @@ public class ReleaseGuardPlugin : Plugin<Project> {
             task.jsonReportFile.set(ext.reports.jsonReport)
             task.markdownReportFile.set(ext.reports.markdownReport)
             task.sarifReportFile.set(ext.reports.sarifReport)
+            task.htmlReportFile.set(ext.reports.htmlReport)
         }
 
         // Capture resolved external coordinates lazily for supply-chain -SNAPSHOT gating without breaking configuration cache.

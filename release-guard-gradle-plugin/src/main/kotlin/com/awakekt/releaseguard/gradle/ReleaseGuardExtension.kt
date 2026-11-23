@@ -196,6 +196,7 @@ public abstract class ReportsGuardSpec @Inject constructor(objects: ObjectFactor
     public val jsonReport: RegularFileProperty = objects.fileProperty()
     public val markdownReport: RegularFileProperty = objects.fileProperty()
     public val sarifReport: RegularFileProperty = objects.fileProperty()
+    public val htmlReport: RegularFileProperty = objects.fileProperty()
     public val baselineFile: RegularFileProperty = objects.fileProperty()
     public val failOnRegression: Property<Boolean> = objects.property(Boolean::class.java)
     public val maxAllowedScoreDrop: Property<Int> = objects.property(Int::class.java)

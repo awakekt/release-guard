@@ -17,6 +17,7 @@ import com.awakekt.releaseguard.analyzers.WebBundleStripper
 import com.awakekt.releaseguard.analyzers.WebStripOptions
 import com.awakekt.releaseguard.io.ZipReadBudget
 import com.awakekt.releaseguard.model.ReleaseGuardPolicy
+import com.awakekt.releaseguard.report.HtmlReportRenderer
 import com.awakekt.releaseguard.report.ReleaseGuardReportRenderer
 import com.awakekt.releaseguard.report.SarifReportRenderer
 import kotlinx.serialization.json.Json
@@ -325,6 +326,9 @@ public abstract class VerifyReleaseGuardTask : DefaultTask() {
     @get:OutputFile
     public abstract val sarifReportFile: RegularFileProperty
 
+    @get:OutputFile
+    public abstract val htmlReportFile: RegularFileProperty
+
     @TaskAction
     public fun verify() {
         val json = Json { ignoreUnknownKeys = true }
@@ -335,19 +339,21 @@ public abstract class VerifyReleaseGuardTask : DefaultTask() {
         writeReport(jsonReportFile.get().asFile, ReleaseGuardReportRenderer.renderJson(scorecard))
         writeReport(markdownReportFile.get().asFile, ReleaseGuardReportRenderer.renderMarkdown(scorecard))
         writeReport(sarifReportFile.get().asFile, SarifReportRenderer.renderSarif(scorecard))
+        writeReport(htmlReportFile.get().asFile, HtmlReportRenderer.renderHtml(scorecard))
 
         val rendered = when (consoleFormat.get().lowercase(Locale.ROOT)) {
             "json" -> ReleaseGuardReportRenderer.renderJson(scorecard)
             "markdown", "md" -> ReleaseGuardReportRenderer.renderMarkdown(scorecard)
             "sarif" -> SarifReportRenderer.renderSarif(scorecard)
+            "html" -> HtmlReportRenderer.renderHtml(scorecard)
             else -> ReleaseGuardReportRenderer.renderConsole(scorecard)
         }
         logger.lifecycle(rendered.trimEnd())
         if (!scorecard.passedGate) {
             throw GradleException(
                 "Release Guard verification failed (score=${scorecard.overallScore}/${policy.minScore}). " +
-                    "See ${markdownReportFile.get().asFile.absolutePath}, ${jsonReportFile.get().asFile.absolutePath}, " +
-                    "and ${sarifReportFile.get().asFile.absolutePath}.",
+                    "Open HTML dashboard: ${htmlReportFile.get().asFile.absolutePath} " +
+                    "(Markdown: ${markdownReportFile.get().asFile.absolutePath}).",
             )
         }
     }

@@ -1442,6 +1442,32 @@ public final class com/awakekt/releaseguard/model/WebAuditPolicy$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class com/awakekt/releaseguard/report/FindingExplainer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/report/FindingExplainer;
+	public final fun explain (Lcom/awakekt/releaseguard/model/AuditFinding;)Lcom/awakekt/releaseguard/report/FindingExplanation;
+	public final fun narrativeFor (Lcom/awakekt/releaseguard/model/AuditFinding;)Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/report/FindingExplanation {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/awakekt/releaseguard/report/FindingExplanation;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/report/FindingExplanation;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/report/FindingExplanation;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttackerLevel ()Ljava/lang/String;
+	public final fun getPassingMeaning ()Ljava/lang/String;
+	public final fun getPlainEnglishImpact ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/report/HtmlReportRenderer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/report/HtmlReportRenderer;
+	public final fun renderHtml (Lcom/awakekt/releaseguard/model/ReleaseScorecard;)Ljava/lang/String;
+}
+
 public final class com/awakekt/releaseguard/report/ReleaseGuardReportRenderer {
 	public static final field INSTANCE Lcom/awakekt/releaseguard/report/ReleaseGuardReportRenderer;
 	public final fun parseJson (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;

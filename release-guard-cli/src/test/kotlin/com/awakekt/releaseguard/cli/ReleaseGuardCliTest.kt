@@ -28,14 +28,17 @@ class ReleaseGuardCliTest {
             val baselineJson = root.resolve("baseline.json")
             val sarifOut = root.resolve("report.sarif")
             val mdOut = root.resolve("report.md")
+            val htmlOut = root.resolve("report.html")
 
             val (passCode, passOut) = runCli(
                 "audit", "--config", policyFile.absolutePath, "--tls-pins", "api.example.com=$pinA,$pinB",
-                "--json-out", baselineJson.absolutePath, "--markdown-out", mdOut.absolutePath, "--sarif-out", sarifOut.absolutePath,
+                "--json-out", baselineJson.absolutePath, "--markdown-out", mdOut.absolutePath,
+                "--sarif-out", sarifOut.absolutePath, "--html-out", htmlOut.absolutePath,
             )
             assertEquals(0, passCode, passOut)
-            assertTrue(baselineJson.isFile && mdOut.isFile && sarifOut.isFile)
+            assertTrue(baselineJson.isFile && mdOut.isFile && sarifOut.isFile && htmlOut.isFile)
             assertTrue("\"version\": \"2.1.0\"" in sarifOut.readText())
+            assertTrue("Release Guard - Static Release Hygiene" in htmlOut.readText())
 
             val (failCode, failOut) = runCli(
                 "audit",

@@ -15,6 +15,7 @@ import com.awakekt.releaseguard.model.AssetEncryptionPolicy
 import com.awakekt.releaseguard.model.BaselinePolicy
 import com.awakekt.releaseguard.model.CheckStatus
 import com.awakekt.releaseguard.model.ReleaseGuardPolicy
+import com.awakekt.releaseguard.report.HtmlReportRenderer
 import com.awakekt.releaseguard.report.ReleaseGuardReportRenderer
 import com.awakekt.releaseguard.report.SarifReportRenderer
 import java.io.File
@@ -228,13 +229,19 @@ class Phase2BinaryInspectorsAndReportingTest {
             assertTrue(diff.hasRegressions)
             assertTrue("supplychain.dependencies.snapshots" in diff.newFailures)
 
-            // 2. Verify SARIF 2.1.0 & Markdown/JSON roundtrip
+            // 2. Verify SARIF 2.1.0, HTML dashboard (with plain-English explanations & escaping), & Markdown
             val sarif = SarifReportRenderer.renderSarif(regressed)
             assertTrue("\"version\": \"2.1.0\"" in sarif)
             assertTrue("\"ruleId\": \"supplychain.dependencies.snapshots\"" in sarif)
             val md = ReleaseGuardReportRenderer.renderMarkdown(regressed)
             assertTrue("Release Hygiene & Obfuscation Score" in md)
+            assertTrue("What an attacker sees" in md)
             assertTrue("Baseline Comparison" in md)
+            val html = HtmlReportRenderer.renderHtml(regressed)
+            assertTrue("<!DOCTYPE html>" in html)
+            assertTrue("What an attacker can see / do" in html)
+            assertTrue("mutable -SNAPSHOT dependencies" in html)
+            assertTrue("Baseline comparison:" in html)
 
             // 3. Verify ZIP-bomb / bounded read protection rejects oversized archive entry
             val bigZip = root.resolve("oversized.zip")

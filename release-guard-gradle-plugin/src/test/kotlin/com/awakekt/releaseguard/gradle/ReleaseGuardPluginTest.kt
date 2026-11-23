@@ -56,9 +56,11 @@ class ReleaseGuardPluginTest {
             assertTrue("100/100 (A+) [PASS]" in firstRun.output, firstRun.output)
 
             val sarifReport = projectDir.resolve("build/reports/release-guard/scorecard.sarif")
+            val htmlReport = projectDir.resolve("build/reports/release-guard/scorecard.html")
             assertTrue(projectDir.resolve("build/reports/release-guard/scorecard.json").isFile)
             assertTrue(projectDir.resolve("build/reports/release-guard/scorecard.md").isFile)
             assertTrue(sarifReport.isFile && "\"version\": \"2.1.0\"" in sarifReport.readText())
+            assertTrue(htmlReport.isFile && "<!DOCTYPE html>" in htmlReport.readText())
             assertFalse(projectDir.resolve("build/release-guard/web-hardened/a1b2c3d4e5f60718.js.map").exists())
 
             val secondRun = GradleRunner.create()

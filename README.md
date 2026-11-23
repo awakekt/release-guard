@@ -20,7 +20,7 @@ shipping, but **never replaces server-authoritative logic, entitlement validatio
 
 | Module | Coordinate | Purpose |
 | --- | --- | --- |
-| `:release-guard-core` | `com.awakekt.releaseguard:release-guard-core` | Pure-Kotlin binary inspectors, web stripper, weighted scorer, baseline diff engine, and Console/JSON/Markdown/SARIF 2.1.0 renderers. |
+| `:release-guard-core` | `com.awakekt.releaseguard:release-guard-core` | Pure-Kotlin binary inspectors, web stripper, weighted scorer, plain-English attacker-impact explainer, baseline diff engine, and Console/JSON/Markdown/HTML/SARIF 2.1.0 renderers. |
 | `:release-guard-cli` | `com.awakekt.releaseguard:release-guard-cli` | Standalone CLI (`audit`, `strip-web`, `print-tls-pins`, `init-policy`). |
 | `:release-guard-gradle-plugin` | `com.awakekt.release-guard` | Configuration-cache-safe Gradle plugin generating ProGuard/R8 rules, collecting library keep rules, stripping web bundles, wiring KMP/AGP release hardening, and gating CI builds. |
 
@@ -101,6 +101,6 @@ releaseGuard {
 # Harden a Kotlin/Wasm bundle (strip WASM debug sections, drop maps, emit CSP _headers)
 ./gradlew :release-guard-cli:run --args="strip-web --input app/webApp/build/dist/wasmJs/productionExecutable --output build/web-hardened"
 
-# Audit artifacts, compare against baseline, and emit JSON + Markdown + SARIF 2.1.0
-./gradlew :release-guard-cli:run --args="audit --config release-guard.json --android-aab app-release.aab --web-dir build/web-hardened --ios-artifact Game.ipa --baseline baseline.json --fail-on-regression --json-out build/scorecard.json --markdown-out build/scorecard.md --sarif-out build/scorecard.sarif"
+# Audit artifacts, compare against baseline, and emit HTML dashboard + JSON + Markdown + SARIF 2.1.0
+./gradlew :release-guard-cli:run --args="audit --config release-guard.json --android-aab app-release.aab --web-dir build/web-hardened --ios-artifact Game.ipa --baseline baseline.json --fail-on-regression --html-out build/scorecard.html --json-out build/scorecard.json --markdown-out build/scorecard.md --sarif-out build/scorecard.sarif"
 ```
