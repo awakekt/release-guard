@@ -1,0 +1,1466 @@
+public final class com/awakekt/releaseguard/ReleaseGuardAuditor {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/ReleaseGuardAuditor;
+	public final fun audit (Lcom/awakekt/releaseguard/ReleaseGuardRequest;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+}
+
+public final class com/awakekt/releaseguard/ReleaseGuardRequest {
+	public fun <init> ()V
+	public fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)V
+	public synthetic fun <init> (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun component2 ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public final fun component3 ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public final fun component4 ()Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public final fun component5 ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public final fun component6 ()Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;
+	public final fun component7 ()Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
+	public final fun component8 ()Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public final fun component9 ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public final fun copy (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/ReleaseGuardRequest;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/ReleaseGuardRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroid ()Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public final fun getBaseline ()Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public final fun getDesktop ()Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public final fun getIos ()Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public final fun getPolicy ()Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun getReadLimits ()Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public final fun getSupplyChain ()Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
+	public final fun getTls ()Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;
+	public final fun getWeb ()Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/AnalyzerOutput {
+	public fun <init> (Ljava/util/List;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/List;Ljava/util/Map;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;Ljava/util/List;Ljava/util/Map;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFindings ()Ljava/util/List;
+	public final fun getMetrics ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/AndroidArtifactAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/AndroidArtifactAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun analyze$default (Lcom/awakekt/releaseguard/analyzers/AndroidArtifactAnalyzer;Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/analyzers/AndroidAuditInput {
+	public fun <init> (Ljava/io/File;Ljava/io/File;)V
+	public synthetic fun <init> (Ljava/io/File;Ljava/io/File;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/io/File;
+	public final fun component2 ()Ljava/io/File;
+	public final fun copy (Ljava/io/File;Ljava/io/File;)Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;Ljava/io/File;Ljava/io/File;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AndroidAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactFile ()Ljava/io/File;
+	public final fun getMappingFile ()Ljava/io/File;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/AndroidManifestFlags {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;ZLjava/lang/Integer;ZLjava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;ZLjava/lang/Integer;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/Boolean;
+	public final fun component4 ()Ljava/lang/Boolean;
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Z
+	public final fun component8 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;ZLjava/lang/Integer;ZLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/AndroidManifestFlags;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/AndroidManifestFlags;Ljava/lang/String;ZLjava/lang/Boolean;Ljava/lang/Boolean;ZLjava/lang/Integer;ZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AndroidManifestFlags;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowBackup ()Ljava/lang/Boolean;
+	public final fun getDebuggable ()Z
+	public final fun getExportedComponents ()Ljava/util/List;
+	public final fun getHasNetworkSecurityConfig ()Z
+	public final fun getPackageName ()Ljava/lang/String;
+	public final fun getTargetSdkVersion ()Ljava/lang/Integer;
+	public final fun getTestOnly ()Z
+	public final fun getUsesCleartextTraffic ()Ljava/lang/Boolean;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ApkCertificateInfo {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcom/awakekt/releaseguard/analyzers/ApkCertificateInfo;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ApkCertificateInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ApkCertificateInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIssuerDn ()Ljava/lang/String;
+	public final fun getSha256Hex ()Ljava/lang/String;
+	public final fun getSubjectDn ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isAndroidDebugCert ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ApkCertificateInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/ApkCertificateInspector;
+	public final fun inspect (Ljava/io/File;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/ApkSigningSummary;
+	public static synthetic fun inspect$default (Lcom/awakekt/releaseguard/analyzers/ApkCertificateInspector;Ljava/io/File;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ApkSigningSummary;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ApkSigningSummary {
+	public fun <init> (ZZLjava/util/List;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (ZZLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/ApkSigningSummary;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ApkSigningSummary;ZZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ApkSigningSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCertificates ()Ljava/util/List;
+	public final fun getHasV1Signature ()Z
+	public final fun getHasV2OrV3Signature ()Z
+	public fun hashCode ()I
+	public final fun isSigned ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ApplePlistSummary {
+	public fun <init> ()V
+	public fun <init> (ZLjava/util/List;ZZZZLjava/util/List;)V
+	public synthetic fun <init> (ZLjava/util/List;ZZZZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Ljava/util/List;
+	public final fun copy (ZLjava/util/List;ZZZZLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/ApplePlistSummary;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ApplePlistSummary;ZLjava/util/List;ZZZZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ApplePlistSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowsArbitraryLoads ()Z
+	public final fun getFileSharingEnabled ()Z
+	public final fun getGetTaskAllow ()Z
+	public final fun getHasProvisionedDevices ()Z
+	public final fun getInsecureExceptionDomains ()Ljava/util/List;
+	public final fun getStringValues ()Ljava/util/List;
+	public final fun getSupportsOpeningDocumentsInPlace ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/AssetEncryptionInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/AssetEncryptionInspector;
+	public final fun inspectAwkbHeader (Ljava/lang/String;[B)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public final fun matchesBundleExtension (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Z
+	public final fun toFinding (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/util/List;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)Lcom/awakekt/releaseguard/model/AuditFinding;
+}
+
+public final class com/awakekt/releaseguard/analyzers/BinaryPlistInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/BinaryPlistInspector;
+	public final fun isBinaryPlist ([B)Z
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/ApplePlistSummary;
+}
+
+public final class com/awakekt/releaseguard/analyzers/BinaryXmlManifestInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/BinaryXmlManifestInspector;
+	public final fun extractStringsFromBinaryXml ([B)Ljava/util/List;
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/AndroidManifestFlags;
+}
+
+public final class com/awakekt/releaseguard/analyzers/BundleHeaderCheck {
+	public fun <init> (Ljava/lang/String;ZLjava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;ZLjava/lang/String;)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;Ljava/lang/String;ZLjava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/BundleHeaderCheck;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDetail ()Ljava/lang/String;
+	public final fun getPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isEncrypted ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/BytecodeLinkVerifier {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/BytecodeLinkVerifier;
+	public final fun verify (Ljava/util/List;Ljava/util/List;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/BytecodeVerificationResult;
+	public static synthetic fun verify$default (Lcom/awakekt/releaseguard/analyzers/BytecodeLinkVerifier;Ljava/util/List;Ljava/util/List;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/BytecodeVerificationResult;
+}
+
+public final class com/awakekt/releaseguard/analyzers/BytecodeVerificationResult {
+	public fun <init> (ILjava/util/List;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (ILjava/util/List;)Lcom/awakekt/releaseguard/analyzers/BytecodeVerificationResult;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/BytecodeVerificationResult;ILjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/BytecodeVerificationResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCheckedClasses ()I
+	public final fun getRejectedClasses ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ClassFileInfo {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ZZZ)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ZZZ)Lcom/awakekt/releaseguard/analyzers/ClassFileInfo;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ClassFileInfo;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ZZZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ClassFileInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHasKotlinMetadata ()Z
+	public final fun getHasLocalVariableTable ()Z
+	public final fun getHasMethodParameters ()Z
+	public final fun getInternalName ()Ljava/lang/String;
+	public final fun getMembers ()Ljava/util/List;
+	public final fun getSourceFile ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ClassFileReader {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/ClassFileReader;
+	public final fun readClass ([B)Lcom/awakekt/releaseguard/analyzers/ClassFileInfo;
+	public final fun readJar (Ljava/io/File;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Ljava/util/List;
+	public static synthetic fun readJar$default (Lcom/awakekt/releaseguard/analyzers/ClassFileReader;Ljava/io/File;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Ljava/util/List;
+}
+
+public final class com/awakekt/releaseguard/analyzers/DesktopAuditInput {
+	public fun <init> (Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)V
+	public synthetic fun <init> (Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/io/File;
+	public final fun component2 ()Ljava/io/File;
+	public final fun component3 ()Ljava/io/File;
+	public final fun component4 ()Ljava/io/File;
+	public final fun component5 ()Ljava/io/File;
+	public final fun component6 ()Ljava/io/File;
+	public final fun copy (Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;)Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;Ljava/io/File;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAssetDirectory ()Ljava/io/File;
+	public final fun getGameJarsDirectory ()Ljava/io/File;
+	public final fun getJpackageAppDirectory ()Ljava/io/File;
+	public final fun getLibrariesDirectory ()Ljava/io/File;
+	public final fun getMappingFile ()Ljava/io/File;
+	public final fun getNativeLibsDirectory ()Ljava/io/File;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/DesktopJarAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/DesktopJarAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun analyze$default (Lcom/awakekt/releaseguard/analyzers/DesktopJarAnalyzer;Lcom/awakekt/releaseguard/analyzers/DesktopAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/analyzers/DexInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/DexInspector;
+	public final fun isFrameworkClass (Ljava/lang/String;)Z
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/DexSummary;
+}
+
+public final class com/awakekt/releaseguard/analyzers/DexSummary {
+	public fun <init> (Ljava/util/List;Ljava/util/Map;Ljava/util/List;Z)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/Map;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/util/List;Ljava/util/Map;Ljava/util/List;Z)Lcom/awakekt/releaseguard/analyzers/DexSummary;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/DexSummary;Ljava/util/List;Ljava/util/Map;Ljava/util/List;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/DexSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeclaredMembersByClass ()Ljava/util/Map;
+	public final fun getDefinedClasses ()Ljava/util/List;
+	public final fun getHasKotlinMetadataDescriptor ()Z
+	public final fun getStrings ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ElfBinaryInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/ElfBinaryInspector;
+	public final fun isElf ([B)Z
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/ElfInspectionResult;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ElfInspectionResult {
+	public fun <init> (ZZZZZZZZZJLjava/util/List;)V
+	public final fun component1 ()Z
+	public final fun component10 ()J
+	public final fun component11 ()Ljava/util/List;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (ZZZZZZZZZJLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/ElfInspectionResult;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ElfInspectionResult;ZZZZZZZZZJLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ElfInspectionResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDebugSectionNames ()Ljava/util/List;
+	public final fun getHasDebugSections ()Z
+	public final fun getHasFullRelro ()Z
+	public final fun getHasNxStack ()Z
+	public final fun getHasRelro ()Z
+	public final fun getHasStackCanary ()Z
+	public final fun getHasSymbolTable ()Z
+	public final fun getMinLoadAlignment ()J
+	public fun hashCode ()I
+	public final fun is16KbAligned ()Z
+	public final fun is64Bit ()Z
+	public final fun isPieOrShared ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ExportedComponentInfo {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZ)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZ)Lcom/awakekt/releaseguard/analyzers/ExportedComponentInfo;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ExportedComponentInfo;Ljava/lang/String;Ljava/lang/String;ZZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ExportedComponentInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHasPermissionGuard ()Z
+	public final fun getKind ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isLauncherActivity ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/IdentifierHeuristics {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/IdentifierHeuristics;
+	public final fun computeReadability (Ljava/util/Collection;Ljava/util/List;Ljava/util/List;Z)Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;
+	public static synthetic fun computeReadability$default (Lcom/awakekt/releaseguard/analyzers/IdentifierHeuristics;Ljava/util/Collection;Ljava/util/List;Ljava/util/List;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;
+	public final fun extractIdentifiers (Ljava/lang/Iterable;)Ljava/util/Set;
+	public final fun extractPrintableStrings ([B)Ljava/util/List;
+	public final fun extractQualifiedClassNames (Ljava/lang/Iterable;)Ljava/util/List;
+	public final fun extractSourcePaths (Ljava/lang/Iterable;Ljava/util/List;)Lcom/awakekt/releaseguard/analyzers/SourcePathStats;
+	public final fun getJDK_STANDARD_MEMBERS ()Ljava/util/Set;
+	public final fun isRecognisableIdentifier (Ljava/lang/String;Ljava/util/List;Ljava/util/List;Z)Z
+	public static synthetic fun isRecognisableIdentifier$default (Lcom/awakekt/releaseguard/analyzers/IdentifierHeuristics;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ZILjava/lang/Object;)Z
+	public final fun matchesProjectPackage (Ljava/lang/String;Ljava/util/List;)Z
+}
+
+public final class com/awakekt/releaseguard/analyzers/IosArtifactAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/IosArtifactAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun analyze$default (Lcom/awakekt/releaseguard/analyzers/IosArtifactAnalyzer;Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/analyzers/IosAuditInput {
+	public fun <init> (Ljava/io/File;Ljava/io/File;)V
+	public synthetic fun <init> (Ljava/io/File;Ljava/io/File;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/io/File;
+	public final fun component2 ()Ljava/io/File;
+	public final fun copy (Ljava/io/File;Ljava/io/File;)Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/IosAuditInput;Ljava/io/File;Ljava/io/File;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/IosAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactPath ()Ljava/io/File;
+	public final fun getInfoPlistFile ()Ljava/io/File;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/MachOInspectionResult {
+	public fun <init> (ILjava/util/List;ZIILjava/util/List;ZZZZ)V
+	public synthetic fun <init> (ILjava/util/List;ZIILjava/util/List;ZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()Z
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Z
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (ILjava/util/List;ZIILjava/util/List;ZZZZ)Lcom/awakekt/releaseguard/analyzers/MachOInspectionResult;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/MachOInspectionResult;ILjava/util/List;ZIILjava/util/List;ZZZZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/MachOInspectionResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDebugStabSymbolCount ()I
+	public final fun getHasCodeSignature ()Z
+	public final fun getHasDwarfSegment ()Z
+	public final fun getHasStackCanary ()Z
+	public final fun getLocalSymbolNames ()Ljava/util/List;
+	public final fun getSegmentNames ()Ljava/util/List;
+	public final fun getSliceCount ()I
+	public final fun getTotalSymbolCount ()I
+	public fun hashCode ()I
+	public final fun isExecutable ()Z
+	public final fun isPie ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/MachOInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/MachOInspector;
+	public final fun isMachO ([B)Z
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/MachOInspectionResult;
+}
+
+public final class com/awakekt/releaseguard/analyzers/NetworkSecurityConfigInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/NetworkSecurityConfigInspector;
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/NetworkSecurityConfigSummary;
+}
+
+public final class com/awakekt/releaseguard/analyzers/NetworkSecurityConfigSummary {
+	public fun <init> ()V
+	public fun <init> (ZZZLjava/util/List;)V
+	public synthetic fun <init> (ZZZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (ZZZLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/NetworkSecurityConfigSummary;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/NetworkSecurityConfigSummary;ZZZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/NetworkSecurityConfigSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHasDebugOverrides ()Z
+	public final fun getIssues ()Ljava/util/List;
+	public final fun getPermitsCleartextTraffic ()Z
+	public final fun getTrustsUserCertificates ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/PeBinaryInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/PeBinaryInspector;
+	public final fun isPe ([B)Z
+	public final fun parse ([B)Lcom/awakekt/releaseguard/analyzers/PeInspectionResult;
+}
+
+public final class com/awakekt/releaseguard/analyzers/PeInspectionResult {
+	public fun <init> (ZZZZLjava/util/List;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (ZZZZLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/PeInspectionResult;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/PeInspectionResult;ZZZZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/PeInspectionResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHasAslr ()Z
+	public final fun getHasControlFlowGuard ()Z
+	public final fun getHasDepNx ()Z
+	public final fun getLeakedPdbPaths ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun is64Bit ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/ReadabilityStats {
+	public fun <init> (DIILjava/util/List;)V
+	public final fun component1 ()D
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (DIILjava/util/List;)Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;DIILjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/ReadabilityStats;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExamples ()Ljava/util/List;
+	public final fun getRecognisableCount ()I
+	public final fun getScore ()D
+	public final fun getTotalCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/RejectedClass {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/awakekt/releaseguard/analyzers/RejectedClass;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/RejectedClass;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/RejectedClass;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClassName ()Ljava/lang/String;
+	public final fun getJarName ()Ljava/lang/String;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SecretMatch {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/awakekt/releaseguard/analyzers/SecretMatch;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/SecretMatch;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/SecretMatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLocation ()Ljava/lang/String;
+	public final fun getRedactedPreview ()Ljava/lang/String;
+	public final fun getRuleName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SecretScanner {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/SecretScanner;
+	public final fun extractInsecureEndpoints (Ljava/lang/Iterable;)Ljava/util/List;
+	public final fun extractLocalBuildPaths (Ljava/lang/Iterable;Ljava/util/List;)Ljava/util/List;
+	public final fun isSensitivePackagedFile (Ljava/lang/String;)Z
+	public final fun scanSecrets (Ljava/lang/String;Ljava/lang/Iterable;Lcom/awakekt/releaseguard/model/SecretScanPolicy;)Ljava/util/List;
+	public final fun shannonEntropy (Ljava/lang/String;)D
+}
+
+public final class com/awakekt/releaseguard/analyzers/SourcePathStats {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lcom/awakekt/releaseguard/analyzers/SourcePathStats;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/SourcePathStats;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/SourcePathStats;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLibraryPaths ()Ljava/util/List;
+	public final fun getProjectPaths ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SupplyChainAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/SupplyChainAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/analyzers/SupplyChainAuditInput {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/SupplyChainAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getResolvedDependencies ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/TlsAuditInput {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;)Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProbeHosts ()Ljava/util/List;
+	public final fun getSpkiPinsSpec ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/TlsPinAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/TlsPinAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/TlsAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public final fun fetchLivePinSpec (Ljava/util/List;)Ljava/lang/String;
+	public final fun matchesPattern (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun parsePinSpec (Ljava/lang/String;)Ljava/util/Map;
+	public final fun spkiSha256Pin (Ljava/security/cert/X509Certificate;)Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WasmBinaryInspector {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/WasmBinaryInspector;
+	public final fun getDEBUG_CUSTOM_SECTIONS ()Ljava/util/Set;
+	public final fun isDebugSection (Lcom/awakekt/releaseguard/analyzers/WasmSection;)Z
+	public final fun readExports ([B)Ljava/util/List;
+	public final fun readSections ([B)Ljava/util/List;
+	public final fun stripDebugSections ([B)Lcom/awakekt/releaseguard/analyzers/WasmStripResult;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WasmSection {
+	public fun <init> (ILjava/lang/String;ZI)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun component4 ()I
+	public final fun copy (ILjava/lang/String;ZI)Lcom/awakekt/releaseguard/analyzers/WasmSection;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/WasmSection;ILjava/lang/String;ZIILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WasmSection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getSizeBytes ()I
+	public fun hashCode ()I
+	public final fun isCustom ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WasmStripResult {
+	public fun <init> ([BLjava/util/List;)V
+	public final fun component1 ()[B
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy ([BLjava/util/List;)Lcom/awakekt/releaseguard/analyzers/WasmStripResult;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/WasmStripResult;[BLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WasmStripResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRemovedSections ()Ljava/util/List;
+	public final fun getStrippedBytes ()[B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebAuditInput {
+	public fun <init> (Ljava/io/File;)V
+	public final fun component1 ()Ljava/io/File;
+	public final fun copy (Ljava/io/File;)Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Ljava/io/File;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WebAuditInput;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSiteDirectory ()Ljava/io/File;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebBundleAnalyzer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/WebBundleAnalyzer;
+	public final fun analyze (Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+	public static synthetic fun analyze$default (Lcom/awakekt/releaseguard/analyzers/WebBundleAnalyzer;Lcom/awakekt/releaseguard/analyzers/WebAuditInput;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/AnalyzerOutput;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebBundleStripper {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/analyzers/WebBundleStripper;
+	public final fun computeInlineScriptHashes (Ljava/lang/String;)Ljava/util/List;
+	public final fun defaultContentSecurityPolicy (Ljava/util/List;)Ljava/lang/String;
+	public static synthetic fun defaultContentSecurityPolicy$default (Lcom/awakekt/releaseguard/analyzers/WebBundleStripper;Ljava/util/List;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun harden (Ljava/io/File;Ljava/io/File;Lcom/awakekt/releaseguard/analyzers/WebStripOptions;)Lcom/awakekt/releaseguard/analyzers/WebStripReport;
+	public static synthetic fun harden$default (Lcom/awakekt/releaseguard/analyzers/WebBundleStripper;Ljava/io/File;Ljava/io/File;Lcom/awakekt/releaseguard/analyzers/WebStripOptions;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WebStripReport;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebStripOptions {
+	public static final field Companion Lcom/awakekt/releaseguard/analyzers/WebStripOptions$Companion;
+	public fun <init> ()V
+	public fun <init> (ZZZLjava/util/Set;ZLjava/lang/String;)V
+	public synthetic fun <init> (ZZZLjava/util/Set;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/util/Set;
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (ZZZLjava/util/Set;ZLjava/lang/String;)Lcom/awakekt/releaseguard/analyzers/WebStripOptions;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/WebStripOptions;ZZZLjava/util/Set;ZLjava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WebStripOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContentSecurityPolicyOverride ()Ljava/lang/String;
+	public final fun getDropSensitiveFiles ()Z
+	public final fun getDropSourceMaps ()Z
+	public final fun getExcludedFiles ()Ljava/util/Set;
+	public final fun getGenerateSecurityHeaders ()Z
+	public final fun getStripWasmDebugSections ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebStripOptions$Companion {
+	public final fun getDEFAULT_EXCLUDED_LOCAL_INDEXES ()Ljava/util/Set;
+}
+
+public final class com/awakekt/releaseguard/analyzers/WebStripReport {
+	public fun <init> (ILjava/util/List;Ljava/util/List;Ljava/util/List;JLjava/util/List;Z)V
+	public synthetic fun <init> (ILjava/util/List;Ljava/util/List;Ljava/util/List;JLjava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()J
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Z
+	public final fun copy (ILjava/util/List;Ljava/util/List;Ljava/util/List;JLjava/util/List;Z)Lcom/awakekt/releaseguard/analyzers/WebStripReport;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/analyzers/WebStripReport;ILjava/util/List;Ljava/util/List;Ljava/util/List;JLjava/util/List;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/analyzers/WebStripReport;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCleanedSourceMapReferences ()Ljava/util/List;
+	public final fun getCopiedFiles ()I
+	public final fun getDroppedSensitiveFiles ()Ljava/util/List;
+	public final fun getDroppedSourceMaps ()Ljava/util/List;
+	public final fun getRemovedWasmSections ()Ljava/util/List;
+	public final fun getStrippedWasmBytesSaved ()J
+	public final fun getWroteHeadersFile ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/io/BinaryReadLimits {
+	public static final field Companion Lcom/awakekt/releaseguard/io/BinaryReadLimits$Companion;
+	public static final field DEFAULT_MAX_FILE_BYTES J
+	public static final field DEFAULT_MAX_TOTAL_ZIP_BYTES J
+	public static final field DEFAULT_MAX_ZIP_ENTRIES I
+	public static final field DEFAULT_MAX_ZIP_ENTRY_BYTES J
+	public fun <init> ()V
+	public fun <init> (JJJI)V
+	public synthetic fun <init> (JJJIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()I
+	public final fun copy (JJJI)Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/io/BinaryReadLimits;JJJIILjava/lang/Object;)Lcom/awakekt/releaseguard/io/BinaryReadLimits;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxSingleFileBytes ()J
+	public final fun getMaxTotalZipBytes ()J
+	public final fun getMaxZipEntries ()I
+	public final fun getMaxZipEntryBytes ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/io/BinaryReadLimits$Companion {
+}
+
+public final class com/awakekt/releaseguard/io/BoundedBinaryIo {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/io/BoundedBinaryIo;
+	public final fun readFileBounded (Ljava/io/File;J)[B
+	public static synthetic fun readFileBounded$default (Lcom/awakekt/releaseguard/io/BoundedBinaryIo;Ljava/io/File;JILjava/lang/Object;)[B
+	public final fun readStreamBounded (Ljava/io/InputStream;JLjava/lang/String;)[B
+	public final fun readTextBounded (Ljava/io/File;J)Ljava/lang/String;
+	public static synthetic fun readTextBounded$default (Lcom/awakekt/releaseguard/io/BoundedBinaryIo;Ljava/io/File;JILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/io/ZipReadBudget {
+	public fun <init> ()V
+	public fun <init> (Lcom/awakekt/releaseguard/io/BinaryReadLimits;)V
+	public synthetic fun <init> (Lcom/awakekt/releaseguard/io/BinaryReadLimits;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun readEntryBytes (Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;J)[B
+	public static synthetic fun readEntryBytes$default (Lcom/awakekt/releaseguard/io/ZipReadBudget;Ljava/util/zip/ZipFile;Ljava/util/zip/ZipEntry;JILjava/lang/Object;)[B
+	public final fun recordEntry (Ljava/lang/String;)V
+}
+
+public final class com/awakekt/releaseguard/model/AndroidAuditPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/AndroidAuditPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZ)V
+	public synthetic fun <init> (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component10 ()Ljava/util/Set;
+	public final fun component11 ()Z
+	public final fun component12 ()Z
+	public final fun component13 ()Z
+	public final fun component14 ()Ljava/util/Set;
+	public final fun component15 ()Z
+	public final fun component16 ()Z
+	public final fun component17 ()Z
+	public final fun component18 ()Ljava/util/List;
+	public final fun component19 ()Z
+	public final fun component2 ()I
+	public final fun component20 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Ljava/lang/Integer;
+	public final fun component9 ()Z
+	public final fun copy (DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZ)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;DIZZZZZLjava/lang/Integer;ZLjava/util/Set;ZZZLjava/util/Set;ZZZLjava/util/List;ZZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowedExportedComponents ()Ljava/util/Set;
+	public final fun getExpectedSigningDigestsSha256 ()Ljava/util/Set;
+	public final fun getForbidAllowBackup ()Z
+	public final fun getForbidCleartextTraffic ()Z
+	public final fun getForbidDebugSigningCert ()Z
+	public final fun getForbidDebuggable ()Z
+	public final fun getForbidExportedComponentsWithoutPermission ()Z
+	public final fun getForbidKotlinMetadata ()Z
+	public final fun getForbidSensitiveBundledFiles ()Z
+	public final fun getForbidTestOnly ()Z
+	public final fun getForbidWeakNetworkSecurityConfig ()Z
+	public final fun getForbiddenArtifactPatterns ()Ljava/util/List;
+	public final fun getInspectNativeElfLibraries ()Z
+	public final fun getMaxKeptProjectClasses ()I
+	public final fun getMaxOwnReadability ()D
+	public final fun getMinTargetSdkVersion ()Ljava/lang/Integer;
+	public final fun getRequireElf16KbAlignment ()Z
+	public final fun getRequireElfHardening ()Z
+	public final fun getRequireMappingFile ()Z
+	public final fun getRequireV2OrV3Signing ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/AndroidAuditPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/AndroidAuditPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AndroidAuditPolicy$Companion {
+	public final fun getDEFAULT_FORBIDDEN_ARTIFACTS ()Ljava/util/List;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AssetEncryptionPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZLjava/util/Set;Z)V
+	public synthetic fun <init> (ZLjava/util/Set;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ljava/util/Set;
+	public final fun component3 ()Z
+	public final fun copy (ZLjava/util/Set;Z)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;ZLjava/util/Set;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBundleExtensions ()Ljava/util/Set;
+	public final fun getEnabled ()Z
+	public final fun getRequireAwkbV2EncryptedFlag ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/AssetEncryptionPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AssetEncryptionPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AuditFinding {
+	public static final field Companion Lcom/awakekt/releaseguard/model/AuditFinding$Companion;
+	public fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/awakekt/releaseguard/model/AuditTarget;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lcom/awakekt/releaseguard/model/CheckStatus;
+	public final fun component5 ()Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;)Lcom/awakekt/releaseguard/model/AuditFinding;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/AuditFinding;Ljava/lang/String;Lcom/awakekt/releaseguard/model/AuditTarget;Ljava/lang/String;Lcom/awakekt/releaseguard/model/CheckStatus;Lcom/awakekt/releaseguard/model/CheckSeverity;ILjava/lang/String;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/AuditFinding;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCheckId ()Ljava/lang/String;
+	public final fun getEvidence ()Ljava/util/List;
+	public final fun getRemediation ()Ljava/lang/String;
+	public final fun getSeverity ()Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public final fun getStatus ()Lcom/awakekt/releaseguard/model/CheckStatus;
+	public final fun getSummary ()Ljava/lang/String;
+	public final fun getTarget ()Lcom/awakekt/releaseguard/model/AuditTarget;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getWeight ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/AuditFinding$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/AuditFinding$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/AuditFinding;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/AuditFinding;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AuditFinding$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/AuditTarget : java/lang/Enum {
+	public static final field ANDROID Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field Companion Lcom/awakekt/releaseguard/model/AuditTarget$Companion;
+	public static final field DESKTOP_JVM Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field IOS Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field SUPPLY_CHAIN Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field TRANSPORT_TLS Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static final field WEB_WASM Lcom/awakekt/releaseguard/model/AuditTarget;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/AuditTarget;
+	public static fun values ()[Lcom/awakekt/releaseguard/model/AuditTarget;
+}
+
+public final class com/awakekt/releaseguard/model/AuditTarget$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/BaselineDiff {
+	public static final field Companion Lcom/awakekt/releaseguard/model/BaselineDiff$Companion;
+	public fun <init> (IIILjava/util/List;Ljava/util/List;Ljava/util/List;Z)V
+	public synthetic fun <init> (IIILjava/util/List;Ljava/util/List;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Z
+	public final fun copy (IIILjava/util/List;Ljava/util/List;Ljava/util/List;Z)Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/BaselineDiff;IIILjava/util/List;Ljava/util/List;Ljava/util/List;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaselineScore ()I
+	public final fun getCurrentScore ()I
+	public final fun getHasRegressions ()Z
+	public final fun getNewFailures ()Ljava/util/List;
+	public final fun getResolvedFailures ()Ljava/util/List;
+	public final fun getScoreDelta ()I
+	public final fun getStatusRegressions ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/BaselineDiff$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/BaselineDiff$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/BaselineDiff;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/BaselineDiff$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/BaselinePolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/BaselinePolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZI)V
+	public synthetic fun <init> (ZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()I
+	public final fun copy (ZI)Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/BaselinePolicy;ZIILjava/lang/Object;)Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFailOnRegression ()Z
+	public final fun getMaxAllowedScoreDrop ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/BaselinePolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/BaselinePolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/BaselinePolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/BaselinePolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/CheckSeverity : java/lang/Enum {
+	public static final field CRITICAL Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static final field Companion Lcom/awakekt/releaseguard/model/CheckSeverity$Companion;
+	public static final field HIGH Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static final field INFO Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static final field LOW Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static final field MEDIUM Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getRank ()I
+	public static fun valueOf (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public static fun values ()[Lcom/awakekt/releaseguard/model/CheckSeverity;
+}
+
+public final class com/awakekt/releaseguard/model/CheckSeverity$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/CheckStatus : java/lang/Enum {
+	public static final field Companion Lcom/awakekt/releaseguard/model/CheckStatus$Companion;
+	public static final field FAIL Lcom/awakekt/releaseguard/model/CheckStatus;
+	public static final field PASS Lcom/awakekt/releaseguard/model/CheckStatus;
+	public static final field SKIP Lcom/awakekt/releaseguard/model/CheckStatus;
+	public static final field WARN Lcom/awakekt/releaseguard/model/CheckStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getSeverityRank ()I
+	public static fun valueOf (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/CheckStatus;
+	public static fun values ()[Lcom/awakekt/releaseguard/model/CheckStatus;
+}
+
+public final class com/awakekt/releaseguard/model/CheckStatus$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/DesktopAuditPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/DesktopAuditPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (DIZZZZZZZZ)V
+	public synthetic fun <init> (DIZZZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component10 ()Z
+	public final fun component2 ()I
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (DIZZZZZZZZ)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;DIZZZZZZZZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getForbidDebugTablesAndKotlinMetadata ()Z
+	public final fun getForbidJpackageDebugFlags ()Z
+	public final fun getForbidLeakedPdbPaths ()Z
+	public final fun getForbidOriginalSourceFileAttribute ()Z
+	public final fun getInspectNativeLibraries ()Z
+	public final fun getMaxKeptProjectClasses ()I
+	public final fun getMaxOwnReadability ()D
+	public final fun getRequireMappingFile ()Z
+	public final fun getRequirePeAslrAndDep ()Z
+	public final fun getVerifyBytecode ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/DesktopAuditPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/DesktopAuditPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/DesktopAuditPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/IosAuditPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/IosAuditPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZIZZZZZZZ)V
+	public synthetic fun <init> (ZIZZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()I
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (ZIZZZZZZZ)Lcom/awakekt/releaseguard/model/IosAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/IosAuditPolicy;ZIZZZZZZZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/IosAuditPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getForbidArbitraryLoads ()Z
+	public final fun getForbidAtsHttpExceptions ()Z
+	public final fun getForbidDebugProvisioningProfile ()Z
+	public final fun getForbidDwarfSections ()Z
+	public final fun getForbidLeakedBuildPaths ()Z
+	public final fun getMaxUnstrippedProjectSymbols ()I
+	public final fun getRequireCodeSignatureForIpa ()Z
+	public final fun getRequireMachOPie ()Z
+	public final fun getRequirePrivacyManifest ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/IosAuditPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/IosAuditPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/IosAuditPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/IosAuditPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/IosAuditPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseGrade : java/lang/Enum {
+	public static final field A Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static final field A_PLUS Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static final field B Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static final field C Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static final field Companion Lcom/awakekt/releaseguard/model/ReleaseGrade$Companion;
+	public static final field D Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static final field F Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getLabel ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public static fun values ()[Lcom/awakekt/releaseguard/model/ReleaseGrade;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseGrade$Companion {
+	public final fun fromScore (I)Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseGuardPolicies {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/ReleaseGuardPolicies;
+	public final fun balancedRelease (Ljava/util/List;Ljava/util/List;I)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public static synthetic fun balancedRelease$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicies;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun developmentAudit (Ljava/util/List;Ljava/util/List;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public static synthetic fun developmentAudit$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicies;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public final fun strictRelease (Ljava/util/List;Ljava/util/List;I)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public static synthetic fun strictRelease$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicies;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component10 ()Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public final fun component11 ()Lcom/awakekt/releaseguard/model/WebAuditPolicy;
+	public final fun component12 ()Lcom/awakekt/releaseguard/model/IosAuditPolicy;
+	public final fun component13 ()Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
+	public final fun component14 ()Lcom/awakekt/releaseguard/model/SecretScanPolicy;
+	public final fun component15 ()Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public final fun component16 ()Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public final fun component17 ()Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()I
+	public final fun component4 ()Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/util/Set;
+	public final fun component7 ()Ljava/util/Map;
+	public final fun component8 ()Ljava/util/Map;
+	public final fun component9 ()Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public final fun copy (Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Ljava/util/List;Ljava/util/List;ILcom/awakekt/releaseguard/model/CheckSeverity;Ljava/util/List;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/IosAuditPolicy;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;Lcom/awakekt/releaseguard/model/SecretScanPolicy;Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;Lcom/awakekt/releaseguard/model/BaselinePolicy;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowedLibraryPathPatterns ()Ljava/util/List;
+	public final fun getAndroid ()Lcom/awakekt/releaseguard/model/AndroidAuditPolicy;
+	public final fun getAssetEncryption ()Lcom/awakekt/releaseguard/model/AssetEncryptionPolicy;
+	public final fun getBaseline ()Lcom/awakekt/releaseguard/model/BaselinePolicy;
+	public final fun getDesktop ()Lcom/awakekt/releaseguard/model/DesktopAuditPolicy;
+	public final fun getDisabledChecks ()Ljava/util/Set;
+	public final fun getFailOnSeverity ()Lcom/awakekt/releaseguard/model/CheckSeverity;
+	public final fun getIos ()Lcom/awakekt/releaseguard/model/IosAuditPolicy;
+	public final fun getMinScore ()I
+	public final fun getProjectKeywords ()Ljava/util/List;
+	public final fun getProjectPackages ()Ljava/util/List;
+	public final fun getSecrets ()Lcom/awakekt/releaseguard/model/SecretScanPolicy;
+	public final fun getSeverityOverrides ()Ljava/util/Map;
+	public final fun getSupplyChain ()Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public final fun getTls ()Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
+	public final fun getWeb ()Lcom/awakekt/releaseguard/model/WebAuditPolicy;
+	public final fun getWeightOverrides ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/ReleaseGuardPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseGuardPolicy$Companion {
+	public final fun getDEFAULT_ALLOWED_LIBRARY_PATHS ()Ljava/util/List;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseScorecard {
+	public static final field Companion Lcom/awakekt/releaseguard/model/ReleaseScorecard$Companion;
+	public fun <init> (ILcom/awakekt/releaseguard/model/ReleaseGrade;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/awakekt/releaseguard/model/BaselineDiff;)V
+	public synthetic fun <init> (ILcom/awakekt/releaseguard/model/ReleaseGrade;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/awakekt/releaseguard/model/BaselineDiff;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/util/Map;
+	public final fun component8 ()Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public final fun copy (ILcom/awakekt/releaseguard/model/ReleaseGrade;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/awakekt/releaseguard/model/BaselineDiff;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/ReleaseScorecard;ILcom/awakekt/releaseguard/model/ReleaseGrade;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/awakekt/releaseguard/model/BaselineDiff;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaselineDiff ()Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public final fun getFindings ()Ljava/util/List;
+	public final fun getGateReasons ()Ljava/util/List;
+	public final fun getGrade ()Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public final fun getMetrics ()Ljava/util/Map;
+	public final fun getOverallScore ()I
+	public final fun getPassedGate ()Z
+	public final fun getTargets ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/ReleaseScorecard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/ReleaseScorecard$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/ReleaseScorecard;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/ReleaseScorecard$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/SecretScanPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/SecretScanPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZZDZLjava/util/Map;Ljava/util/List;)V
+	public synthetic fun <init> (ZZDZLjava/util/Map;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()D
+	public final fun component4 ()Z
+	public final fun component5 ()Ljava/util/Map;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (ZZDZLjava/util/Map;Ljava/util/List;)Lcom/awakekt/releaseguard/model/SecretScanPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/SecretScanPolicy;ZZDZLjava/util/Map;Ljava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/SecretScanPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowlistRegexes ()Ljava/util/List;
+	public final fun getEnableHighEntropyScan ()Z
+	public final fun getEnabled ()Z
+	public final fun getExtraPatterns ()Ljava/util/Map;
+	public final fun getForbidLocalhostEndpointsInRelease ()Z
+	public final fun getMinEntropyThreshold ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/SecretScanPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/SecretScanPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/SecretScanPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/SecretScanPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/SecretScanPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/SupplyChainPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/SupplyChainPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/SupplyChainPolicy;ZILjava/lang/Object;)Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getForbidSnapshotDependencies ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/SupplyChainPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/SupplyChainPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/SupplyChainPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/SupplyChainPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/SupplyChainPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/TargetScorecard {
+	public static final field Companion Lcom/awakekt/releaseguard/model/TargetScorecard$Companion;
+	public fun <init> (Lcom/awakekt/releaseguard/model/AuditTarget;ILcom/awakekt/releaseguard/model/ReleaseGrade;IIIILjava/util/List;)V
+	public final fun component1 ()Lcom/awakekt/releaseguard/model/AuditTarget;
+	public final fun component2 ()I
+	public final fun component3 ()Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()Ljava/util/List;
+	public final fun copy (Lcom/awakekt/releaseguard/model/AuditTarget;ILcom/awakekt/releaseguard/model/ReleaseGrade;IIIILjava/util/List;)Lcom/awakekt/releaseguard/model/TargetScorecard;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/TargetScorecard;Lcom/awakekt/releaseguard/model/AuditTarget;ILcom/awakekt/releaseguard/model/ReleaseGrade;IIIILjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/TargetScorecard;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFailedChecks ()I
+	public final fun getFindings ()Ljava/util/List;
+	public final fun getGrade ()Lcom/awakekt/releaseguard/model/ReleaseGrade;
+	public final fun getPassedChecks ()I
+	public final fun getScore ()I
+	public final fun getSkippedChecks ()I
+	public final fun getTarget ()Lcom/awakekt/releaseguard/model/AuditTarget;
+	public final fun getWarnedChecks ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/TargetScorecard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/TargetScorecard$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/TargetScorecard;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/TargetScorecard;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/TargetScorecard$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/TlsAuditPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/TlsAuditPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (ZIZLjava/util/List;)V
+	public synthetic fun <init> (ZIZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()I
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (ZIZLjava/util/List;)Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/TlsAuditPolicy;ZIZLjava/util/List;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMinPinsPerHost ()I
+	public final fun getProbeHosts ()Ljava/util/List;
+	public final fun getProbeLiveHosts ()Z
+	public final fun getRequirePins ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/TlsAuditPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/TlsAuditPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/TlsAuditPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/TlsAuditPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/TlsAuditPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/WebAuditMode : java/lang/Enum {
+	public static final field Companion Lcom/awakekt/releaseguard/model/WebAuditMode$Companion;
+	public static final field PREVIEW Lcom/awakekt/releaseguard/model/WebAuditMode;
+	public static final field PRODUCTION Lcom/awakekt/releaseguard/model/WebAuditMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/WebAuditMode;
+	public static fun values ()[Lcom/awakekt/releaseguard/model/WebAuditMode;
+}
+
+public final class com/awakekt/releaseguard/model/WebAuditMode$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/WebAuditPolicy {
+	public static final field Companion Lcom/awakekt/releaseguard/model/WebAuditPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (Lcom/awakekt/releaseguard/model/WebAuditMode;DZZZLjava/lang/Integer;ZZZZLjava/util/Set;ZZZLjava/lang/Integer;)V
+	public synthetic fun <init> (Lcom/awakekt/releaseguard/model/WebAuditMode;DZZZLjava/lang/Integer;ZZZZLjava/util/Set;ZZZLjava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/awakekt/releaseguard/model/WebAuditMode;
+	public final fun component10 ()Z
+	public final fun component11 ()Ljava/util/Set;
+	public final fun component12 ()Z
+	public final fun component13 ()Z
+	public final fun component14 ()Z
+	public final fun component15 ()Ljava/lang/Integer;
+	public final fun component2 ()D
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (Lcom/awakekt/releaseguard/model/WebAuditMode;DZZZLjava/lang/Integer;ZZZZLjava/util/Set;ZZZLjava/lang/Integer;)Lcom/awakekt/releaseguard/model/WebAuditPolicy;
+	public static synthetic fun copy$default (Lcom/awakekt/releaseguard/model/WebAuditPolicy;Lcom/awakekt/releaseguard/model/WebAuditMode;DZZZLjava/lang/Integer;ZZZZLjava/util/Set;ZZZLjava/lang/Integer;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/WebAuditPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowWasmUnsafeEvalInCsp ()Z
+	public final fun getForbidDebugSections ()Z
+	public final fun getForbidDebuggerStatements ()Z
+	public final fun getForbidInsecureWebEndpoints ()Z
+	public final fun getForbidProjectSourcePaths ()Z
+	public final fun getForbidSensitiveDistFiles ()Z
+	public final fun getForbidSourceMaps ()Z
+	public final fun getGradeCspQuality ()Z
+	public final fun getMaxQualifiedProjectClasses ()Ljava/lang/Integer;
+	public final fun getMaxReadability ()D
+	public final fun getMaxWasmExports ()Ljava/lang/Integer;
+	public final fun getMode ()Lcom/awakekt/releaseguard/model/WebAuditMode;
+	public final fun getRequireSecurityHeaders ()Z
+	public final fun getRequireSubresourceIntegrity ()Z
+	public final fun getSriAllowlistHosts ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/awakekt/releaseguard/model/WebAuditPolicy$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/model/WebAuditPolicy$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/awakekt/releaseguard/model/WebAuditPolicy;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/awakekt/releaseguard/model/WebAuditPolicy;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/model/WebAuditPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/awakekt/releaseguard/report/ReleaseGuardReportRenderer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/report/ReleaseGuardReportRenderer;
+	public final fun parseJson (Ljava/lang/String;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public final fun renderConsole (Lcom/awakekt/releaseguard/model/ReleaseScorecard;)Ljava/lang/String;
+	public final fun renderJson (Lcom/awakekt/releaseguard/model/ReleaseScorecard;)Ljava/lang/String;
+	public final fun renderMarkdown (Lcom/awakekt/releaseguard/model/ReleaseScorecard;)Ljava/lang/String;
+}
+
+public final class com/awakekt/releaseguard/report/ReleaseGuardScorer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/report/ReleaseGuardScorer;
+	public final fun computeBaselineDiff (ILjava/util/List;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;)Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public static synthetic fun computeBaselineDiff$default (Lcom/awakekt/releaseguard/report/ReleaseGuardScorer;ILjava/util/List;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/BaselineDiff;
+	public final fun score (Ljava/util/List;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Ljava/util/Map;Lcom/awakekt/releaseguard/model/ReleaseScorecard;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+	public static synthetic fun score$default (Lcom/awakekt/releaseguard/report/ReleaseGuardScorer;Ljava/util/List;Lcom/awakekt/releaseguard/model/ReleaseGuardPolicy;Ljava/util/Map;Lcom/awakekt/releaseguard/model/ReleaseScorecard;ILjava/lang/Object;)Lcom/awakekt/releaseguard/model/ReleaseScorecard;
+}
+
+public final class com/awakekt/releaseguard/report/SarifReportRenderer {
+	public static final field INSTANCE Lcom/awakekt/releaseguard/report/SarifReportRenderer;
+	public final fun renderSarif (Lcom/awakekt/releaseguard/model/ReleaseScorecard;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun renderSarif$default (Lcom/awakekt/releaseguard/report/SarifReportRenderer;Lcom/awakekt/releaseguard/model/ReleaseScorecard;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+

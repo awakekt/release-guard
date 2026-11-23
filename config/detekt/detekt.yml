@@ -1,0 +1,55 @@
+config:
+  validation: true
+  warningsAsErrors: false
+  checkExhaustiveness: false
+
+complexity:
+  active: true
+  ComplexCondition:
+    active: true
+  CyclomaticComplexMethod:
+    active: true
+  LargeClass:
+    active: true
+  LongMethod:
+    active: true
+  LongParameterList:
+    active: true
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+  NestedBlockDepth:
+    active: true
+  TooManyFunctions:
+    active: true
+    excludes: &testExcludes
+      - '**/test/**'
+
+exceptions:
+  active: true
+  PrintStackTrace:
+    active: true
+  SwallowedException:
+    active: true
+    allowedExceptionNameRegex: '_|(ignore|expected).*'
+  TooGenericExceptionCaught:
+    active: true
+    excludes: *testExcludes
+    allowedExceptionNameRegex: '_|(ignore|expected).*'
+
+style:
+  active: true
+  ForbiddenComment:
+    active: true
+  LoopWithTooManyJumpStatements:
+    active: true
+    maxJumpCount: 1
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: false
+  ReturnCount:
+    active: true
+    max: 2
+    excludeLabeled: false
+    excludeReturnFromLambda: true
+    excludeGuardClauses: false
