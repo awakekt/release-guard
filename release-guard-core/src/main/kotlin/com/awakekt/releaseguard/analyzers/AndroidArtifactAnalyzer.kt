@@ -118,6 +118,7 @@ public object AndroidArtifactAnalyzer {
             isDexEntry(name) -> scanDexEntry(zip, entry, policy, budget, acc)
             name.endsWith("network_security_config.xml", ignoreCase = true) ->
                 acc.netConfigs += name to NetworkSecurityConfigInspector.parse(budget.readEntryBytes(zip, entry))
+            isCompiledResXml(name, entry.size) -> scanCompiledResXml(zip, entry, budget, acc)
             policy.android.inspectNativeElfLibraries && isNativeSoEntry(name) -> scanElfEntry(zip, entry, budget, acc)
             policy.assetEncryption.enabled && AssetEncryptionInspector.matchesBundleExtension(name, policy.assetEncryption) ->
                 acc.bundleChecks += AssetEncryptionInspector.inspectAwkbHeader(name, budget.readEntryBytes(zip, entry, 64L))
@@ -146,6 +147,13 @@ public object AndroidArtifactAnalyzer {
         val bytes = budget.readEntryBytes(zip, entry)
         if (ElfBinaryInspector.isElf(bytes)) {
             acc.elfResults += entry.name to ElfBinaryInspector.parse(bytes)
+        }
+    }
+
+    private fun scanCompiledResXml(zip: ZipFile, entry: ZipEntry, budget: ZipReadBudget, acc: ScanAccumulator) {
+        val bytes = budget.readEntryBytes(zip, entry, MAX_RES_XML_BYTES)
+        if (NetworkSecurityConfigInspector.isNetworkSecurityConfig(bytes)) {
+            acc.netConfigs += entry.name to NetworkSecurityConfigInspector.parse(bytes)
         }
     }
 
@@ -275,4 +283,10 @@ private fun shouldScanAssetEntry(name: String, size: Long): Boolean {
     return size <= MAX_ASSET_SCAN_BYTES && isAsset && isText
 }
 
+private fun isCompiledResXml(name: String, size: Long): Boolean =
+    size in 1..MAX_RES_XML_BYTES &&
+        (name.startsWith("res/") || name.startsWith("base/res/")) &&
+        name.endsWith(".xml", ignoreCase = true)
+
 private const val MAX_ASSET_SCAN_BYTES: Long = 2L * 1024L * 1024L
+private const val MAX_RES_XML_BYTES: Long = 64L * 1024L

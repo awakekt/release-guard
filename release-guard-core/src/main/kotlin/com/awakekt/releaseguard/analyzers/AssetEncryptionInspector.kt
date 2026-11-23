@@ -35,7 +35,7 @@ public object AssetEncryptionInspector {
     /** Returns `true` when [path] ends with one of [policy]'s configured [AssetEncryptionPolicy.bundleExtensions]. */
     public fun matchesBundleExtension(path: String, policy: AssetEncryptionPolicy): Boolean {
         val ext = path.substringAfterLast('.', "").lowercase(Locale.ROOT)
-        return ext.isNotEmpty() && policy.bundleExtensions.any { it.lowercase(Locale.ROOT) == ext }
+        return ext.isNotEmpty() && policy.bundleExtensions.any { it.lowercase(Locale.ROOT).removePrefix(".") == ext }
     }
 
     /** Returns `true` when [path] matches either default `.awkb` bundle extensions or any custom container rule. */
@@ -61,10 +61,18 @@ public object AssetEncryptionInspector {
         } else {
             inspectAwkbHeader(path, sampleBytes)
         }
-        val minEntropy = policy.minContainerEntropy
-        if (!base.isEncrypted || minEntropy == null || sampleBytes.size < 256) return base
-        val payload = sampleBytes.copyOfRange(minOf(64, sampleBytes.size), sampleBytes.size)
-        val entropy = computeByteEntropy(payload)
+        return applyEntropyFloor(base, sampleBytes, policy.minContainerEntropy, isAwkb = customRule == null)
+    }
+
+    private fun applyEntropyFloor(
+        base: BundleHeaderCheck,
+        sampleBytes: ByteArray,
+        minEntropy: Double?,
+        isAwkb: Boolean,
+    ): BundleHeaderCheck {
+        val payloadStart = resolveEntropyPayloadStart(sampleBytes, isAwkb)
+        if (!base.isEncrypted || minEntropy == null || payloadStart + 256 > sampleBytes.size) return base
+        val entropy = computeByteEntropy(sampleBytes.copyOfRange(payloadStart, sampleBytes.size))
         return if (entropy < minEntropy) {
             base.copy(
                 isEncrypted = false,
@@ -73,6 +81,14 @@ public object AssetEncryptionInspector {
         } else {
             base
         }
+    }
+
+    private fun resolveEntropyPayloadStart(sampleBytes: ByteArray, isAwkb: Boolean): Int {
+        if (isAwkb && sampleBytes.size >= 16 && awkbMagic.indices.all { sampleBytes[it] == awkbMagic[it] }) {
+            val dirLength = ByteBuffer.wrap(sampleBytes).order(ByteOrder.BIG_ENDIAN).getInt(12)
+            if (dirLength >= 0) return 16 + dirLength
+        }
+        return minOf(64, sampleBytes.size)
     }
 
     /** Inspects a container header against a generic declarative [rule]. */
@@ -120,7 +136,7 @@ public object AssetEncryptionInspector {
         !awkbMagic.indices.all { idx -> headerBytes[idx] == awkbMagic[idx] } ->
             BundleHeaderCheck(path, false, "unrecognized bundle magic")
         else -> {
-            val buf = ByteBuffer.wrap(headerBytes).order(ByteOrder.LITTLE_ENDIAN)
+            val buf = ByteBuffer.wrap(headerBytes).order(ByteOrder.BIG_ENDIAN)
             val version = buf.getShort(4).toInt() and 0xFFFF
             val flags = buf.getShort(6).toInt() and 0xFFFF
             val encrypted = version >= 2 && (flags and AWKB_FLAG_ENCRYPTED) != 0

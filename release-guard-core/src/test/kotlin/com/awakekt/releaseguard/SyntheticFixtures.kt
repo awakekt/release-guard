@@ -566,11 +566,11 @@ internal object SyntheticFixtures {
         )
     }
 
-    /** Builds a minimal `.awkb` content bundle header (v1 plaintext or v2 encrypted). */
+    /** Builds a minimal `.awkb` content bundle header (big-endian v1 plaintext or v2 encrypted). */
     fun buildAwkbHeader(version: Int, encrypted: Boolean): ByteArray {
         val bytes = ByteArray(16)
         "AWKB".toByteArray(Charsets.US_ASCII).copyInto(bytes, 0)
-        val buf = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
+        val buf = ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN)
         buf.putShort(4, version.toShort())
         buf.putShort(6, if (encrypted) 1 else 0)
         return bytes

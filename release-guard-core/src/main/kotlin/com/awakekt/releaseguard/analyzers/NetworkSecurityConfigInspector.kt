@@ -27,6 +27,18 @@ public object NetworkSecurityConfigInspector {
     private val debugOverridesRegex = Regex("""<debug-overrides\b""", RegexOption.IGNORE_CASE)
     private val cleartextRegex = Regex("""\bcleartextTrafficPermitted\s*=\s*"true"""", RegexOption.IGNORE_CASE)
 
+    /** Returns `true` when [bytes] represents an Android `network-security-config` XML resource (plain or compiled AXML). */
+    internal fun isNetworkSecurityConfig(bytes: ByteArray): Boolean {
+        val isAxml = bytes.size >= 8 &&
+            (ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getShort(0).toInt() and 0xFFFF) == RES_XML_TYPE
+        return if (isAxml) {
+            BinaryXmlManifestInspector.extractStringsFromBinaryXml(bytes)
+                .any { it.equals("network-security-config", ignoreCase = true) }
+        } else {
+            String(bytes, Charsets.UTF_8).contains("<network-security-config", ignoreCase = true)
+        }
+    }
+
     /** Inspects raw bytes of a `network_security_config.xml` file. */
     public fun parse(bytes: ByteArray): NetworkSecurityConfigSummary {
         val isAxml = bytes.size >= 8 &&
