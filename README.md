@@ -10,11 +10,76 @@ Signing Blocks, ELF `.so`, Windows PE32/PE32+ `.dll`/`.exe`, WebAssembly `.wasm`
 Universal Fat binaries, and Apple binary `bplist00`) are implemented in pure Kotlin with hard memory
 and ZIP-bomb read limits — no Python, `apktool`, `dexdump`, `readelf`, `wasm-opt`, or `nm` required.
 
-## Trust boundary
+## Trust boundary & scope discipline
 
 Release Guard audits **static obfuscation, binary hardening, packaging hygiene, and transport
 configuration**. It raises reverse-engineering cost and blocks accidental debug/secret leaks before
 shipping, but **never replaces server-authoritative logic, entitlement validation, or runtime RASP**.
+
+To keep Release Guard reusable across any Kotlin Multiplatform app or game, maintain a strict
+boundary between **generic release auditing** and **game-specific authoring or runtime security**:
+
+| Belongs in Release Guard (`awakekt/release-guard`) | Does NOT belong here — keep in your game / engine / private security module |
+| --- | --- |
+| Engine-agnostic open binary & format parsers (`.class`, `.dex`, AXML/Protobuf manifest, ELF, PE, Mach-O, WASM, SPIR-V, WGSL/GLSL, `bplist00`, `glTF`/FBX magic, TLS SPKI) | Game-authoring pipelines & content schemas (world/zone partitioning, character/item tables, scene graphs, sign-in asset sets, proprietary TOC/index layouts) |
+| Generic configurable primitives (`forbiddenClasses`, `ownJarNames`, `ContainerHeaderRule`, `minContainerEntropy`, `forbidRawModelExtensions`, secret regex + entropy scans) | Runtime anti-cheat, RASP, Frida/debugger traps, root/jailbreak checks, or hardware attestation |
+| Static build-time strippers (WASM debug sections, SPIR-V debug opcodes, `.map` removal, CSP `_headers` generation) | Asset encryption keys, key derivation, runtime decryption, or server-authoritative gameplay/economy checks |
+| Pluggable `ReleaseGuardCheck` callback & `ServiceLoader` `ReleaseGuardCheckProvider` SPI | Reverse-proxy / server infrastructure config (Caddy, Nginx, Cloudflare Tunnel/WAF) |
+
+### Writing game-specific authoring checks via callback / SPI
+
+Put game-authoring rules (such as sign-in bundle budgets, encrypted world-key indexes, or proprietary
+asset-pack checks) in your own project's `build-logic` or verification tool using `ReleaseGuardCheck`:
+
+```kotlin
+package com.example.game.buildlogic
+
+import com.awakekt.releaseguard.analyzers.AnalyzerOutput
+import com.awakekt.releaseguard.model.AuditFinding
+import com.awakekt.releaseguard.model.AuditTarget
+import com.awakekt.releaseguard.model.CheckSeverity
+import com.awakekt.releaseguard.model.CheckStatus
+import com.awakekt.releaseguard.spi.AuditContext
+import com.awakekt.releaseguard.spi.ReleaseGuardCheck
+
+class WorldKeyIndexCheck : ReleaseGuardCheck {
+    override fun evaluate(context: AuditContext): AnalyzerOutput {
+        val indexFile = context.assets?.assetDirectories?.firstOrNull()?.resolve("project.index.json")
+        val ok = indexFile?.isFile == true && indexFile.readText().contains("\"keyId\"")
+        return AnalyzerOutput(
+            findings = listOf(
+                AuditFinding(
+                    checkId = "game.authoring.world_key_index",
+                    target = AuditTarget.CUSTOM,
+                    title = "Encrypted world-key index present",
+                    status = if (ok) CheckStatus.PASS else CheckStatus.FAIL,
+                    severity = CheckSeverity.HIGH,
+                    weight = 15,
+                    summary = if (ok) "Encrypted index carries keyId entries." else "Index is missing keyId entries.",
+                    attackerLevel = "Rookie (CDN Scraper)",
+                    plainEnglishImpact = "Without per-world keyId sealing, anyone can fetch locked-zone assets before earning access.",
+                    remediation = "Seal play content with per-world encryption keys before publishing.",
+                ),
+            ),
+        )
+    }
+}
+```
+
+Register it in Gradle (configuration-cache safe) via `customChecks`:
+
+```kotlin
+releaseGuard {
+    customChecks {
+        checkClasses.add("com.example.game.buildlogic.WorldKeyIndexCheck")
+        parameters.put("maxSignInMb", "5")
+    }
+}
+```
+
+Or expose a `ReleaseGuardCheckProvider` via `META-INF/services/com.awakekt.releaseguard.spi.ReleaseGuardCheckProvider`
+for zero-config auto-discovery on the build classpath. Every custom finding automatically joins the
+weighted `0–100` score, `scorecard.html` dashboard, `scorecard.sarif` upload, baseline diff, and CI gate.
 
 ## Modules
 
