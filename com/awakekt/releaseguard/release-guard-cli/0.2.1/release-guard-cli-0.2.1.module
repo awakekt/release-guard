@@ -1,0 +1,123 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.awakekt.releaseguard",
+    "module": "release-guard-cli",
+    "version": "0.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.awakekt.releaseguard",
+          "module": "release-guard-core",
+          "version": {
+            "requires": "0.2.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "release-guard-cli-0.2.1.jar",
+          "url": "release-guard-cli-0.2.1.jar",
+          "size": 25006,
+          "sha512": "afb6281ea500d12d1b1e4d8a49d1a8532bebe24f27fc32b3bfc0c7846a1b4eddc44265f5fe418fe6dea88729cd109dced1ed02dbbb87feb0782629c003517eae",
+          "sha256": "f7d61bb9e8cf2508e8916aaaef7af2b9f0bdac857ca8b0b4cd09fc2931854242",
+          "sha1": "2b6f2d36103205d7ce2ebf40a9ebced37b6ccf78",
+          "md5": "f4d70893507130bb41e128f66b8d521e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.11.0"
+          }
+        },
+        {
+          "group": "com.awakekt.releaseguard",
+          "module": "release-guard-core",
+          "version": {
+            "requires": "0.2.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "release-guard-cli-0.2.1.jar",
+          "url": "release-guard-cli-0.2.1.jar",
+          "size": 25006,
+          "sha512": "afb6281ea500d12d1b1e4d8a49d1a8532bebe24f27fc32b3bfc0c7846a1b4eddc44265f5fe418fe6dea88729cd109dced1ed02dbbb87feb0782629c003517eae",
+          "sha256": "f7d61bb9e8cf2508e8916aaaef7af2b9f0bdac857ca8b0b4cd09fc2931854242",
+          "sha1": "2b6f2d36103205d7ce2ebf40a9ebced37b6ccf78",
+          "md5": "f4d70893507130bb41e128f66b8d521e"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "release-guard-cli-0.2.1-sources.jar",
+          "url": "release-guard-cli-0.2.1-sources.jar",
+          "size": 6655,
+          "sha512": "42016e75a03136c6aed5c651dab4ba0f7b28fc9cf015d2ee7bf617aad1dc58bb1a83d62e1ed3624aae725e1e69848acbe9078c1e099a064a812482a91134c21e",
+          "sha256": "9254c6b68cd4237850472a0e7cd01655f723a0317775f8a4f8f17cd61045c284",
+          "sha1": "0d53aa835aee960056c0f9e20b1baf38b194e84d",
+          "md5": "81f62805330b5ae4e697d88c9d749c00"
+        }
+      ]
+    }
+  ]
+}
