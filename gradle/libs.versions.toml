@@ -5,6 +5,7 @@ kotlinx-serialization = "1.11.0"
 detekt = "2.0.0-alpha.6"
 spotless = "7.0.2"
 binary-compat = "0.17.0"
+vanniktech-publish = "0.37.0"
 junit = "4.13.2"
 
 [libraries]
@@ -19,3 +20,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 binary-compat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compat" }
+vanniktech-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-publish" }

@@ -5,9 +5,9 @@
  */
 plugins {
     `java-gradle-plugin`
-    `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.vanniktech.publish)
 }
 
 kotlin {
@@ -39,5 +39,15 @@ gradlePlugin {
                 "for Desktop JVM, Android APK/AAB, Web WASM/JS, iOS, and TLS."
             tags.set(listOf("kmp", "kotlin", "security", "hardening", "obfuscation", "release", "audit"))
         }
+    }
+}
+
+mavenPublishing {
+    pom {
+        name.set("Release Guard Gradle Plugin")
+        description.set(
+            "Configurable KMP release hardening, binary verification, and weighted hygiene scoring " +
+                "for Desktop JVM, Android APK/AAB, Web WASM/JS, iOS, and TLS.",
+        )
     }
 }

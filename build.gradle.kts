@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import com.diffplug.gradle.spotless.SpotlessExtension
+import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
@@ -16,6 +16,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.vanniktech.publish) apply false
     alias(libs.plugins.binary.compat)
 }
 
@@ -81,11 +82,49 @@ subprojects {
         extensions.configure<JavaPluginExtension> {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
-            withSourcesJar()
         }
         extensions.configure<KotlinJvmProjectExtension> {
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_17)
+            }
+        }
+    }
+
+    plugins.withId("com.vanniktech.maven.publish") {
+        extensions.configure<MavenPublishBaseExtension>("mavenPublishing") {
+            publishToMavenCentral(automaticRelease = true)
+
+            val hasSigningKey =
+                hasProperty("signingInMemoryKey") ||
+                    System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKey") != null
+            if (hasSigningKey) {
+                signAllPublications()
+            }
+
+            pom {
+                url.set("https://github.com/awakekt/release-guard")
+                licenses {
+                    license {
+                        name.set("Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                issueManagement {
+                    system.set("GitHub")
+                    url.set("https://github.com/awakekt/release-guard/issues")
+                }
+                developers {
+                    developer {
+                        id.set("ronjunevaldoz")
+                        name.set("Ron June Valdoz")
+                        url.set("https://github.com/awakekt")
+                    }
+                }
+                scm {
+                    url.set("https://github.com/awakekt/release-guard")
+                    connection.set("scm:git:git://github.com/awakekt/release-guard.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/awakekt/release-guard.git")
+                }
             }
         }
     }
@@ -109,29 +148,6 @@ subprojects {
                                 .orElse(providers.gradleProperty("githubPackagesToken"))
                                 .orElse("")
                                 .get()
-                    }
-                }
-            }
-            publications.withType<MavenPublication>().configureEach {
-                pom {
-                    url.set("https://github.com/awakekt/release-guard")
-                    licenses {
-                        license {
-                            name.set("Apache-2.0")
-                            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                        }
-                    }
-                    developers {
-                        developer {
-                            id.set("ronjunevaldoz")
-                            name.set("Ron June Valdoz")
-                            url.set("https://github.com/awakekt")
-                        }
-                    }
-                    scm {
-                        url.set("https://github.com/awakekt/release-guard")
-                        connection.set("scm:git:git://github.com/awakekt/release-guard.git")
-                        developerConnection.set("scm:git:ssh://git@github.com/awakekt/release-guard.git")
                     }
                 }
             }

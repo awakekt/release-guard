@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (e.g. 0.1.0 or 0.1.0-SNAPSHOT)'
+        description: 'Version to publish (e.g. 0.1.1 or 0.1.2-SNAPSHOT)'
         required: true
         type: string
 
@@ -25,6 +25,8 @@ jobs:
           distribution: temurin
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@014df23b1329b615816a38eb5f473bb9000700b1 # v3
 
       - name: Resolve release version
         id: version
@@ -48,11 +50,43 @@ jobs:
       - name: Verify tests, Detekt, Spotless, and Binary Compatibility
         run: ./gradlew test detekt spotlessCheck apiCheck -Pversion="${{ steps.version.outputs.value }}" --console=plain
 
-      - name: Publish Maven artifacts and Gradle plugin to GitHub Packages
+      - name: Publish to Maven Central
+        shell: bash
+        env:
+          DOPPLER_TOKEN: ${{ secrets.MAVEN_CENTRAL_DOPPLER_TOKEN }}
+          RELEASE_VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          [[ -n "$DOPPLER_TOKEN" ]] || {
+            echo "::error::Set the MAVEN_CENTRAL_DOPPLER_TOKEN repository secret."
+            exit 1
+          }
+          doppler run --no-fallback --project maven-central --config prd -- \
+            env -u DOPPLER_TOKEN bash -e -o pipefail <<'PUBLISH_CENTRAL'
+            [[ "$DOPPLER_PROJECT" == maven-central && "$DOPPLER_CONFIG" == prd ]] || {
+              echo "::error::Use a Doppler service token for maven-central/prd."
+              exit 1
+            }
+            for name in MAVEN_CENTRAL_USERNAME MAVEN_CENTRAL_PASSWORD GPG_SIGNING_KEY GPG_SIGNING_PASSWORD; do
+              [[ -n "${!name}" ]] || { echo "::error::Missing $name in maven-central/prd Doppler config."; exit 1; }
+            done
+            printf '::add-mask::%s\n' "$MAVEN_CENTRAL_USERNAME" "$MAVEN_CENTRAL_PASSWORD" "$GPG_SIGNING_PASSWORD"
+            while IFS= read -r line; do
+              [[ -n "$line" ]] && printf '::add-mask::%s\n' "$line"
+            done <<< "$GPG_SIGNING_KEY"
+
+            export ORG_GRADLE_PROJECT_mavenCentralUsername="$MAVEN_CENTRAL_USERNAME"
+            export ORG_GRADLE_PROJECT_mavenCentralPassword="$MAVEN_CENTRAL_PASSWORD"
+            export ORG_GRADLE_PROJECT_signingInMemoryKey="$GPG_SIGNING_KEY"
+            export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_PASSWORD"
+
+            ./gradlew publishAndReleaseToMavenCentral -Pversion="$RELEASE_VERSION" --no-configuration-cache --console=plain
+          PUBLISH_CENTRAL
+
+      - name: Publish mirror to GitHub Packages and build CLI distribution
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository :release-guard-cli:distZip -Pversion="${{ steps.version.outputs.value }}" --console=plain
+        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository :release-guard-cli:distZip -Pversion="${{ steps.version.outputs.value }}" --no-configuration-cache --console=plain
 
       - name: Create GitHub Release with CLI distribution
         if: github.ref_type == 'tag'

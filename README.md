@@ -35,27 +35,29 @@ shipping, but **never replaces server-authoritative logic, entitlement validatio
 | **Transport TLS** | SPKI SHA-256 pin syntax, wildcard matching (`*.`, `**.`), rotation backup pin count, optional live TLS handshake verification, and live pin printing. |
 | **Supply Chain & Baselines** | Gradle `-SNAPSHOT` dependency gating, baseline regression diffing (`--baseline` / `--fail-on-regression`), and SARIF 2.1.0 output for GitHub Code Scanning. |
 
-## Installation (GitHub Packages)
+## Installation (Maven Central)
 
-Add the `awakekt/release-guard` GitHub Packages Maven repository to both `pluginManagement` and `dependencyResolutionManagement` in `settings.gradle.kts` (GitHub Packages requires a token with `read:packages` even for public packages):
+Release Guard is published to **Maven Central** (no tokens required). Ensure `mavenCentral()` is present in `pluginManagement` and `dependencyResolutionManagement` in `settings.gradle.kts`:
 
 ```kotlin
 pluginManagement {
     repositories {
-        maven("https://maven.pkg.github.com/awakekt/release-guard") {
-            credentials {
-                username = "token"
-                password = providers.gradleProperty("githubPackagesToken").orNull
-                    ?: System.getenv("GITHUB_TOKEN") ?: ""
-            }
-            content {
-                includeGroup("com.awakekt.releaseguard")
-                includeGroup("com.awakekt.release-guard")
-            }
-        }
         gradlePluginPortal()
         mavenCentral()
     }
+}
+```
+
+Then apply the plugin or add the core library:
+
+```kotlin
+plugins {
+    id("com.awakekt.release-guard") version "<version>"
+}
+
+// Or as a standalone Kotlin/JVM library:
+dependencies {
+    implementation("com.awakekt.releaseguard:release-guard-core:<version>")
 }
 ```
 
